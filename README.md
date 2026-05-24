@@ -12,23 +12,39 @@ conda activate spotify-dashboard
 pip install -r requirements.txt
 ```
 
-## Run viz
+## Add data to data folder
+1. Add full_Ashanti.csv, full_Gabi.csv, full_Maribel.csv from Ashanti's repo
+2. Run data_clean.py. It will create cleaned.csv file
+3. That cleaned.csv file is later loaded into app by calling utils/data_loader.py
+4. Add git ignore file:
 
-Start the dashboard with Streamlit:
+```bash
+data/
+*.csv
+__pycache__/*
+```
+
+## Visualizations are in pages
+Example: pages/trends.py has trends page line chart which is called by app.py (main file)
+
+## Main file
+Main file that is rendering the whole app is app.py
+
+To run the app, run this in cmd (remeber to activate your prepared env and be in repo folder):
 
 ```bash
 streamlit run app.py
 ```
 
-## Project layout
+## Project layout schema
 
-- `app.py`: main Streamlit app (use to make visualizations)
-- `requirements.txt`: Python dependencies
-- `data/`: CSV data used by the app (e.g., `cleaned.csv`, `full_*.csv`)
-
-Example data files in this repo (data folder is ignored):
-
-- `data/cleaned.csv` (used to clean our datasets)
-- `data/full_Ashanti.csv`
-- `data/full_Gabi.csv`
-
+spotify-dashboard/
+├── app.py
+├── pages/
+│   ├── artists.py
+│   ├── comparison.py
+│   ├── trends.py
+├── utils/
+│   └── data_loader.py
+├── data/
+│   └── cleaned.csv
