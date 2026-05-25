@@ -39,12 +39,21 @@ streamlit run app.py
 ## Project layout schema
 
 spotify-dashboard/
+
 ├── app.py
+
 ├── pages/
+
 │   ├── artists.py
+
 │   ├── comparison.py
+
 │   ├── trends.py
+
 ├── utils/
+
 │   └── data_loader.py
+
 ├── data/
+
 │   └── cleaned.csv
