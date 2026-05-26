@@ -3,31 +3,31 @@
     border: 1px solid rgba(255,255,255,0.06);
     border-radius: 22px;
     padding: 32px;
-    min-height: 500px;
+    min-height: 320px;
 }
 
 .hero-title {
     font-size: 64px;
     font-weight: 800;
     line-height: 1.0;
-    margin-bottom: 24px;
+    margin-bottom: 18px;
 }
 
 .gradient-text {
-    color: #B86BFF;
+    color: white;
 }
 
 .hero-subtitle {
     color: #A0A0A0;
     font-size: 22px;
     line-height: 1.5;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .metrics-row {
     display: flex;
     justify-content: space-between;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .metric-block {
@@ -36,12 +36,12 @@
 }
 
 .metric-icon {
-    font-size: 42px;
-    margin-bottom: 10px;
+    font-size: 24px;
+    margin-bottom: 5px;
 }
 
 .metric-value {
-    font-size: 42px;
+    font-size: 24px;
     font-weight: 700;
     color: white;
 }
@@ -60,7 +60,7 @@
 }
 
 .podium-title {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 700;
     margin-bottom: 30px;
     color: white;
@@ -95,5 +95,147 @@
 .podium-hours {
     font-size: 22px;
     font-weight: 700;
-    color: #B86BFF;
+    color: white;
+}
+
+.users-card {
+
+    background-color: #0b0b0b;
+
+    border: 1px solid rgba(255,255,255,0.06);
+
+    border-radius: 22px;
+
+    padding: 32px;
+
+    height: 100%;
+}
+
+.users-title {
+
+    font-size: 38px;
+
+    font-weight: 700;
+
+    color: white;
+
+    margin-bottom: 34px;
+}
+
+.users-wrapper {
+
+    display: flex;
+
+    justify-content: space-around;
+
+    align-items: center;
+}
+
+.user-block {
+
+    text-align: center;
+}
+
+.user-avatar {
+
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    border: 3px solid rgba(255,255,255,0.08);
+}
+
+.user-name {
+
+    margin-top: 18px;
+
+    font-size: 17px;
+
+    color: white;
+
+    font-weight: 500;
+}
+
+.user-stats {
+
+    margin-top: 16px;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    font-size: 13px;
+
+    color: #A0A0A0;
+
+    line-height: 1.4;
+}
+
+.user-stats b {
+
+    color: white;
+
+    font-size: 16px;
+}
+
+.mood-diagnosis-wrapper {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 18px;
+
+    margin-top: 22px;
+}
+
+.mood-diagnosis-card {
+
+    flex: 1;
+
+    background: #111111;
+
+    border: 1px solid rgba(255,255,255,0.06);
+
+    border-radius: 18px;
+
+    padding: 18px;
+
+    text-align: center;
+}
+
+.diagnosis-name {
+
+    font-size: 22px;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+.diagnosis-title {
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: 600;
+
+    margin-bottom: 6px;
+}
+
+.diagnosis-subtitle {
+
+    color: #9A9A9A;
+
+    font-size: 14px;
+
+    font-style: italic;
+
+    line-height: 1.4;
 }

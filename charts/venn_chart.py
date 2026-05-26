@@ -39,8 +39,8 @@ def create_venn_chart(data):
                 cy=3.0,
                 r=r1,
 
-                line="#6EEB83",
-                fill="rgba(110,235,131,0.28)"
+                line="#4f6dff",
+                fill="rgba(79,109,255,0.28)"
             ),
 
             dict(
@@ -48,8 +48,8 @@ def create_venn_chart(data):
                 cy=3.0,
                 r=r2,
 
-                line="#B86BFF",
-                fill="rgba(184,107,255,0.28)"
+                line="#FF8FD8",
+                fill="rgba(255,143,216,0.28)"
             )
         ]
 
@@ -62,8 +62,8 @@ def create_venn_chart(data):
                 cy=3.2,
                 r=r1,
 
-                line="#6EEB83",
-                fill="rgba(110,235,131,0.28)"
+                line="#4f6dff",
+                fill="rgba(79,109,255,0.28)"
             ),
 
             dict(
@@ -71,8 +71,8 @@ def create_venn_chart(data):
                 cy=3.2,
                 r=r2,
 
-                line="#B86BFF",
-                fill="rgba(184,107,255,0.28)"
+                line="#FF8FD8",
+                fill="rgba(255,143,216,0.28)"
             ),
 
             dict(
@@ -80,7 +80,7 @@ def create_venn_chart(data):
                 cy=1.2,
                 r=r3,
 
-                line="#FF9E57",
+                line="#FF8A3D",
                 fill="rgba(255,158,87,0.28)"
             )
         ]

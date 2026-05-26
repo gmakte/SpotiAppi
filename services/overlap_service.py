@@ -8,14 +8,12 @@ def compute_song_overlaps(df):
 
         user_df = df[df["user"] == user]
 
-        songs = set(
-            zip(
-                user_df["master_metadata_track_name"],
-                user_df["master_metadata_album_artist_name"]
-            )
+        artists = set(
+            user_df["master_metadata_album_artist_name"]
+            .dropna()
         )
 
-        user_sets[user] = songs
+        user_sets[user] = artists
 
     # ---------------------------------
     # TWO USERS
@@ -79,3 +77,5 @@ def compute_song_overlaps(df):
 
             "abc": len(A & B & C),
         }
+
+compute_song_overlaps = compute_song_overlaps

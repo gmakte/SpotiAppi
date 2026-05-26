@@ -1,0 +1,120 @@
+import streamlit as st
+
+from services.obsession_service import (
+    compute_obsession_metrics
+)
+
+from charts.obsession_chart import (
+    create_obsession_chart
+)
+
+
+def render_obsession(df):
+
+    metrics = compute_obsession_metrics(df)
+
+    fig = create_obsession_chart(metrics)
+
+    st.markdown(
+        "### Obsessive behavior analysis"
+    )
+
+    col1, col2 = st.columns([2.8, 1])
+
+    # ---------------------------------
+    # CHART
+    # ---------------------------------
+
+    with col1:
+
+        st.plotly_chart(
+            fig,
+            use_container_width=True
+        )
+
+    # ---------------------------------
+    # RIGHT SIDE CARDS
+    # ---------------------------------
+
+    with col2:
+
+        colors = {
+            0: "#4f6dff",
+            1: "#FF8FD8",
+            2: "#FF8A3D"
+        }
+
+        personality_map = {
+
+            "Ashanti": {
+                "label": "Comfort Zone",
+                "quote": "Never leaves her comfort zone, even if the song is bad"
+            },
+
+            "Gabi": {
+                "label": "Commitment Issues",
+                "quote": "Always looking for the next best thing, can't commit to a song"
+            },
+
+            "Maribel": {
+                "label": "Short Attention Span",
+                "quote": "Clearly a victim of the modern streaming era, skips songs like swiping on Tinder"
+            }
+        }
+
+        for i, row in metrics.iterrows():
+
+            archetype = personality_map[
+                row["user"]
+            ]["label"]
+
+            subtitle = personality_map[
+                row["user"]
+            ]["quote"]
+
+            # ---------------------------------
+            # CARD
+            # ---------------------------------
+
+            st.markdown(
+                f"""
+<div style="
+padding:18px;
+margin-bottom:18px;
+border-radius:18px;
+background:#151515;
+border:1px solid rgba(255,255,255,0.05);
+">
+
+<div style="
+font-size:26px;
+font-weight:700;
+color:{colors.get(i, 'white')};
+margin-bottom:10px;
+">
+{row['user']}
+</div>
+
+<div style="
+font-size:18px;
+font-weight:600;
+color:white;
+margin-bottom:4px;
+">
+{archetype}
+</div>
+
+<div style="
+font-size:14px;
+font-style:italic;
+color:#A0A0A0;
+margin-bottom:10px;
+line-height:1.4;
+">
+“{subtitle}”
+</div>
+
+</div>
+""",
+                unsafe_allow_html=True
+            )

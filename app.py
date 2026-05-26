@@ -7,6 +7,10 @@ from components.podium import render_podium
 from services.listening_rankings import top_listeners
 from components.venn import render_venn
 from services.shared_artists import (compute_shared_artists)
+from services.obsession_service import (compute_obsession_metrics)
+from components.obsession import render_obsession
+from components.users_card import (render_users_card)
+from components.mood import (render_mood)
 
 
 st.set_page_config(
@@ -20,37 +24,42 @@ load_css()
 # LOAD DATA
 df = load_data()
 
-render_hero(df)
-
 # ROW 1
+
 col1, col2 = st.columns([1, 2])
 
 with col1:
-    with st.container(border=True):
-        render_podium(df)
+    render_hero(df)
 
 with col2:
-    with st.container(border=True):
-        render_venn(df)
+    render_users_card(df)
 
 # ROW 2
-col3, col4 = st.columns([1.2, 1])
+col2, col3 = st.columns([1, 2])
+
+with col2:
+    render_podium(df)
 
 with col3:
-    with st.container(border=True):
-        st.write("Obsession chart")
+    render_venn(df)
+
+
+render_obsession(df)
+
+# ROW 3
+render_mood(df)
+
+# ROW 4
+with st.container(border=True):
+    st.write("More ideas?")
+
+# ROW 5
+col4, col5 = st.columns([1, 2])
 
 with col4:
     with st.container(border=True):
-        st.write("Mood fingerprints")
-
-# ROW 3
-col5, col6 = st.columns([1, 2])
-
-with col5:
-    with st.container(border=True):
         st.write("Listening clock")
 
-with col6:
+with col5:
     with st.container(border=True):
         st.write("Taste evolution")

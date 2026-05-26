@@ -15,7 +15,7 @@ from charts.venn_chart import (
 
 def render_venn(df):
 
-    st.markdown("### 2. Which song do we listen together?")
+    st.markdown("### Common Interests in Artists")
 
     # ---------------------------------
     # USER SELECTION
@@ -23,12 +23,15 @@ def render_venn(df):
 
     users = sorted(df["user"].dropna().unique())
 
-    selected_users = st.multiselect(
-        "Compare users",
-        users,
-        default=users[:3],
-        max_selections=3,
-        key="venn_users"
+    selected_users = st.pills(
+
+        "Compare listeners",
+
+        options=users,
+
+        selection_mode="multi",
+
+        default=users[:2]
     )
 
     if len(selected_users) < 2:
@@ -102,16 +105,6 @@ font-weight:600;
 color:white;
 ">
 {row['master_metadata_album_artist_name']}
-</div>
-
-<div style="
-margin-top:6px;
-font-size:15px;
-color:#B86BFF;
-">
-{row['score']:.2f}% shared taste
-</div>
-
 </div>
 """,
                 unsafe_allow_html=True
