@@ -51,15 +51,8 @@ render_mood(df)
 
 # ROW 4
 with st.container(border=True):
-    st.write("More ideas?")
+    st.write("Listening clock")
 
 # ROW 5
-col4, col5 = st.columns([1, 2])
-
-with col4:
-    with st.container(border=True):
-        st.write("Listening clock")
-
-with col5:
-    with st.container(border=True):
-        st.write("Taste evolution")
+with st.container(border=True):
+    st.write("Taste evolution")
