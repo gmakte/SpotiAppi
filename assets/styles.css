@@ -1,0 +1,99 @@
+.main-card {
+    background-color: #0b0b0b;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 22px;
+    padding: 32px;
+    min-height: 500px;
+}
+
+.hero-title {
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 1.0;
+    margin-bottom: 24px;
+}
+
+.gradient-text {
+    color: #B86BFF;
+}
+
+.hero-subtitle {
+    color: #A0A0A0;
+    font-size: 22px;
+    line-height: 1.5;
+    margin-bottom: 40px;
+}
+
+.metrics-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+
+.metric-block {
+    text-align: center;
+    flex: 1;
+}
+
+.metric-icon {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.metric-value {
+    font-size: 42px;
+    font-weight: 700;
+    color: white;
+}
+
+.metric-label {
+    font-size: 18px;
+    color: #888;
+}
+
+.podium-card {
+    background-color: #0b0b0b;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 22px;
+    padding: 28px;
+    height: 100%;
+}
+
+.podium-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: white;
+}
+
+.podium-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 18px 0;
+
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.podium-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.podium-medal {
+    font-size: 30px;
+}
+
+.podium-user {
+    font-size: 22px;
+    font-weight: 600;
+    color: white;
+}
+
+.podium-hours {
+    font-size: 22px;
+    font-weight: 700;
+    color: #B86BFF;
+}
