@@ -41,15 +41,15 @@ def create_clock_chart(data):
 
         go.Barpolar(
 
-        r=[0.28] * 24,
-        base=[0.72] * 24,
+        r=[0.28] * 48,
+        base=[0.72] * 48,
 
         theta=[
-            h * 15
-            for h in data["hours"]
+            s * 7.5
+            for s in data["slots"]
         ],
 
-        width=[14.7] * 24,
+        width=[7.2] * 48,
 
         marker_color=colors,
 
@@ -60,23 +60,23 @@ def create_clock_chart(data):
 
         opacity=0.95,
 
-        customdata=list(
+        customdata=[
 
-            zip(
-
-                data["hours"],
-
-                data["dominant_users"],
-
-                data["dominant_minutes"]
+            (
+                s,
+                data["dominant_users"][i],
+                data["dominant_real_minutes"][i],
+                f"{s//2:02d}:{'00' if s % 2 == 0 else '30'}"
             )
-        ),
+
+            for i, s in enumerate(data["slots"])
+        ],
 
         hovertemplate=(
 
             "<b>%{customdata[1]}</b><br>"
 
-            "Hour: %{customdata[0]}:00<br>"
+            "Time: %{customdata[3]}<br>"
 
             "Minutes: %{customdata[2]:,.0f}"
 
@@ -101,8 +101,7 @@ def create_clock_chart(data):
             "</span><br><br>"
 
             f"<span style='font-size:28px;color:{USER_COLORS[data['peak_user']]};font-weight:700'>"
-            f"{data['peak_hour']}:00 - {data['end_hour']}:00"
-            "</span><br>"
+            f"{data['peak_hour']}:{data['peak_minute']} - {data['end_hour']}:{data['end_minute']}"            "</span><br>"
 
             f"<span style='font-size:24px;color:{USER_COLORS[data['peak_user']]};font-weight:700'>"
             f"{data['peak_user']}"
@@ -179,8 +178,8 @@ def create_clock_chart(data):
 
         showlegend=False,
 
-        height=540,
-        width=540,
+        height=420,
+        width=420,
 
         margin=dict(
             l=20,

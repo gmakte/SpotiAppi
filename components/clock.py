@@ -11,8 +11,16 @@ from charts.radial_clock import (
 
 def render_clock(df):
 
-    st.markdown(
-        "## When do we listen?"
+    # ---------------------------------
+    # TITLE
+    # ---------------------------------
+
+    st.title(
+        "When do we listen?"
+    )
+
+    st.caption(
+        "Normalized by total listening activity per user."
     )
 
     # ---------------------------------
@@ -26,88 +34,144 @@ def render_clock(df):
     )
 
     # ---------------------------------
+    # LAYOUT
+    # ---------------------------------
+
+    col1, col2 = st.columns(
+        [1.3, 1],
+        gap="large"
+    )
+
+    # ---------------------------------
     # CLOCK
     # ---------------------------------
 
-    st.plotly_chart(
-        fig,
-        use_container_width=True
-    )
+    with col1:
 
-    # ---------------------------------
-    # LEGEND
-    # ---------------------------------
+        st.plotly_chart(
+            fig,
+            use_container_width=True,
+            config={
+                "displayModeBar": False
+            }
+        )
 
-    st.markdown(
+        # ---------------------------------
+        # LEGEND
+        # ---------------------------------
+
+        st.markdown(
         """
-<div style="
-display:flex;
-justify-content:center;
-align-items:center;
-gap:70px;
-margin-top:-10px;
-margin-bottom:20px;
-width:100%;
-">
+    <div style="
+    display:flex;
+    justify-content:center;
+    margin-top:-10px;
+    width:100%;
+    ">
 
-<div style="
-display:flex;
-align-items:center;
-gap:10px;
-">
-<div style="
-width:14px;
-height:14px;
-border-radius:50%;
-background:#4f6dff;
-"></div>
-<span style="
-color:white;
-font-size:16px;
-">
-Ashanti
-</span>
-</div>
+    <div style="
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:40px;
+    padding:10px 22px;
+    border-radius:16px;
+    background:rgba(255,255,255,0.02);
+    width:fit-content;
+    ">
 
-<div style="
-display:flex;
-align-items:center;
-gap:10px;
-">
-<div style="
-width:14px;
-height:14px;
-border-radius:50%;
-background:#FF8FD8;
-"></div>
-<span style="
-color:white;
-font-size:16px;
-">
-Gabi
-</span>
-</div>
+    <div style="
+    display:flex;
+    align-items:center;
+    gap:8px;
+    ">
 
-<div style="
-display:flex;
-align-items:center;
-gap:10px;
-">
-<div style="
-width:14px;
-height:14px;
-border-radius:50%;
-background:#FF8A3D;
-"></div>
-<span style="
-color:white;
-font-size:16px;
-">
-Maribel
-</span>
-</div>
+    <div style="
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:#4f6dff;
+    "></div>
 
-</div>
-""",
+    <span style="
+    color:white;
+    font-size:16px;
+    ">
+    Ashanti
+    </span>
+
+    </div>
+
+    <div style="
+    display:flex;
+    align-items:center;
+    gap:8px;
+    ">
+
+    <div style="
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:#FF8FD8;
+    "></div>
+
+    <span style="
+    color:white;
+    font-size:16px;
+    ">
+    Gabi
+    </span>
+
+    </div>
+
+    <div style="
+    display:flex;
+    align-items:center;
+    gap:8px;
+    ">
+
+    <div style="
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:#FF8A3D;
+    "></div>
+
+    <span style="
+    color:white;
+    font-size:16px;
+    ">
+    Maribel
+    </span>
+
+    </div>
+
+    </div>
+
+    </div>
+    """,
         unsafe_allow_html=True
     )
+
+    # ---------------------------------
+    # RIGHT PANEL
+    # ---------------------------------
+
+    with col2:
+
+        st.markdown(
+            "### Placeholder"
+        )
+
+        st.markdown(
+            """
+<div style="
+height:420px;
+border-radius:18px;
+background:#111111;
+border:1px solid rgba(255,255,255,0.06);
+">
+</div>
+""",
+            unsafe_allow_html=True
+        )
