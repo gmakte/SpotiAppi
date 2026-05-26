@@ -11,7 +11,7 @@ from services.obsession_service import (compute_obsession_metrics)
 from components.obsession import render_obsession
 from components.users_card import (render_users_card)
 from components.mood import (render_mood)
-
+from components.clock import (render_clock)
 
 st.set_page_config(
     page_title="Spotify Dashboard",
@@ -50,8 +50,7 @@ render_obsession(df)
 render_mood(df)
 
 # ROW 4
-with st.container(border=True):
-    st.write("Listening clock")
+render_clock(df)
 
 # ROW 5
 with st.container(border=True):
