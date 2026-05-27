@@ -82,7 +82,7 @@ def render_clock(df):
 
     color:rgba(255,255,255,0.82);
 
-    padding:14px 16px;
+    padding:10px 10px;
 
     border-radius:14px;
 
@@ -115,9 +115,7 @@ Normalized
 </div>
 
 <div class="normalized-tooltip">
-
-Each person's listening activity is divided by their own total listening time so the chart compares listening habits rather than raw listening volume.
-
+Scaled by each person’s total listening time to reveal habit patterns.
 </div>
 
 </div>
@@ -163,17 +161,17 @@ Each person's listening activity is divided by their own total listening time so
             width=430,
 
             margin=dict(
-                l=0,
-                r=0,
-                t=0,
-                b=0
+                l=20,
+                r=20,
+                t=20,
+                b=20
             ),
 
             polar=dict(
 
                 radialaxis=dict(
                     visible=False,
-                    range=[0, 0.90]
+                    range=[0, 0.87]
                 ),
 
                 angularaxis=dict(
@@ -242,7 +240,7 @@ Each person's listening activity is divided by their own total listening time so
     font-size:28px;
     font-weight:800;
     color:white;
-    margin-top:-100px;
+    margin-top:-120px;
     margin-bottom:8px;
     ">
     Listening personality overview
@@ -277,7 +275,7 @@ Each person's listening activity is divided by their own total listening time so
     align-items:center;
     gap:12px;
     margin-bottom:2px;
-    margin-top:-50px;
+    margin-top:-75px;
     ">
 
     <div style="
@@ -339,7 +337,6 @@ Each person's listening activity is divided by their own total listening time so
     ">
     Peak windows
     </div>
-
     """,
         unsafe_allow_html=True
     )
@@ -358,35 +355,54 @@ Each person's listening activity is divided by their own total listening time so
 
             with peak_cols[idx]:
 
-                st.markdown(
+                st.html(
                     f"""
+            <div style="
+            background:rgba(255,255,255,0.02);
+            border:2px solid {color}40;
+            box-shadow:0 0 50px {color}25;
 
-        <div style="
-        padding-right:20px;
-        ">
-        
-        <div style="
-        font-size:24px;
-        font-weight:800;
-        color:white;
-        margin-bottom:14px;
-        ">
-        {person["peak_hour"]}:00 — {person["peak_end_hour"]}:00
-        </div>
+            border-radius:26px;
 
-        <div style="
-        font-size:16px;
-        line-height:1.6;
-        font-weight:600;
-        color:{color};
-        ">
-        {silly}
-        </div>
+            padding:12px 14px;
 
-        </div>
-        """,
-                        unsafe_allow_html=True
-                    )
+            min-height:150px;
+
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+
+            text-align:center;
+            ">
+
+            <div style="
+            font-size:30px;
+            font-weight:800;
+            color:white;
+
+            line-height:1.1;
+
+            margin-bottom:5px;
+            ">
+            {person["peak_hour"]}:00 —
+            {person["peak_end_hour"]}:00
+            </div>
+
+            <div style="
+            font-size:17px;
+            line-height:1.6;
+            font-weight:600;
+
+            color:{color};
+
+            max-width:220px;
+            ">
+            {silly}
+            </div>
+
+            </div>
+            """)
 
         # =====================================================
         # PROPORTIONAL VIEW
@@ -483,7 +499,7 @@ Normalized listening share per hour
 
             barmode="stack",
 
-            height=240,
+            height=150,
 
             margin=dict(
                 l=0,
