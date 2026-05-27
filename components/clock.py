@@ -576,7 +576,7 @@ Normalized listening share per hour
             <div style="
                 color:rgba(255,255,255,0.5);
                 font-size:15px;
-                margin-bottom:22px;
+                margin-bottom:-5px;
             ">
                 Dominant mood across each hour of the day.
             </div>
@@ -593,9 +593,9 @@ Normalized listening share per hour
 
         <div style="
             display:flex;
-            gap:6px;
-            margin-left:120px;
-            margin-bottom:12px;
+            gap:4px;
+            margin-left:76px;
+            margin-bottom:-10px;
         ">
 
         """
@@ -608,7 +608,7 @@ Normalized listening share per hour
                 width:28px;
                 text-align:center;
                 color:rgba(255,255,255,0.45);
-                font-size:11px;
+                font-size:15px;
             ">
                 {hour}
             </div>
@@ -630,12 +630,11 @@ Normalized listening share per hour
             <div style="
                 display:flex;
                 align-items:center;
-                gap:12px;
-                margin-bottom:14px;
+                gap:4px;
             ">
 
                 <div style="
-                    width:90px;
+                    width:72px;
                     color:white;
                     font-size:17px;
                     font-weight:700;
@@ -662,11 +661,11 @@ Normalized listening share per hour
                         width:28px;
                         height:28px;
 
-                        border-radius:8px;
+                        border-radius:4px;
 
                         background:{color};
 
-                        box-shadow:0 0 14px {color}40;
+                        box-shadow:0 0 10px {color}22;
                     "
                 ></div>
 
@@ -675,3 +674,65 @@ Normalized listening share per hour
             row += "</div>"
 
             st.html(row,)
+
+        st.html("""
+
+        <div class="mood-legend">
+
+            <div class="mood-legend-item">
+                <div class="mood-legend-dot"
+                style="background:#4f6dff;"></div>
+
+                <div class="mood-legend-text">
+                Melancholic
+                </div>
+            </div>
+
+            <div class="mood-legend-item">
+                <div class="mood-legend-dot"
+                style="background:#9B2242;"></div>
+
+                <div class="mood-legend-text">
+                Dark
+                </div>
+            </div>
+
+            <div class="mood-legend-item">
+                <div class="mood-legend-dot"
+                style="background:#FF8FD8;"></div>
+
+                <div class="mood-legend-text">
+                Dreamy
+                </div>
+            </div>
+
+            <div class="mood-legend-item">
+                <div class="mood-legend-dot"
+                style="background:#6FAF98;"></div>
+
+                <div class="mood-legend-text">
+                Calm
+                </div>
+            </div>
+
+            <div class="mood-legend-item">
+                <div class="mood-legend-dot"
+                style="background:#FF8A3D;"></div>
+
+                <div class="mood-legend-text">
+                Energetic
+                </div>
+            </div>
+
+            <div class="mood-legend-item">
+                <div class="mood-legend-dot"
+                style="background:#FFD166;"></div>
+
+                <div class="mood-legend-text">
+                Happy
+                </div>
+            </div>
+
+        </div>
+
+        """)
