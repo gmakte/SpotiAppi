@@ -1,13 +1,9 @@
 import streamlit as st
 import plotly.graph_objects as go
 
-from services.clock_analysis import (
-    compute_clock
-)
-
-from charts.radial_clock import (
-    create_clock_chart
-)
+from services.clock_analysis import (compute_clock)
+from charts.radial_clock import (create_clock_chart)
+from services.mood_service import compute_hourly_mood_map
 
 
 def render_clock(df):
@@ -552,3 +548,130 @@ Normalized listening share per hour
                 "displayModeBar": False
             }
         )
+
+
+
+        # -----------------------------------
+        # MOOD MAP
+        # -----------------------------------
+
+        from assets.palette import MOOD_COLORS
+        mood_map = compute_hourly_mood_map(df)
+
+        st.html("""
+
+        <div style="
+            margin-top:10px;
+        ">
+
+            <div style="
+                font-size:22px;
+                font-weight:800;
+                color:white;
+                margin-bottom:4px;
+            ">
+                Mood map
+            </div>
+
+            <div style="
+                color:rgba(255,255,255,0.5);
+                font-size:15px;
+                margin-bottom:22px;
+            ">
+                Dominant mood across each hour of the day.
+            </div>
+
+        </div>
+
+        """)
+
+        # -----------------------------------
+        # HOURS
+        # -----------------------------------
+
+        hours_header = """
+
+        <div style="
+            display:flex;
+            gap:6px;
+            margin-left:120px;
+            margin-bottom:12px;
+        ">
+
+        """
+
+        for hour in range(24):
+
+            hours_header += f"""
+
+            <div style="
+                width:28px;
+                text-align:center;
+                color:rgba(255,255,255,0.45);
+                font-size:11px;
+            ">
+                {hour}
+            </div>
+
+            """
+
+        hours_header += "</div>"
+
+        st.html(hours_header)
+
+        # -----------------------------------
+        # USER ROWS
+        # -----------------------------------
+
+        for person, moods in mood_map.items():
+
+            row = f"""
+
+            <div style="
+                display:flex;
+                align-items:center;
+                gap:12px;
+                margin-bottom:14px;
+            ">
+
+                <div style="
+                    width:90px;
+                    color:white;
+                    font-size:17px;
+                    font-weight:700;
+                ">
+                    {person}
+                </div>
+
+            """
+
+            for mood in moods:
+
+                mood_key = mood.lower()
+
+                color = MOOD_COLORS.get(
+                    mood_key,
+                    "#444444"
+                )
+
+                row += f"""
+
+                <div
+                    title="{mood}"
+                    style="
+                        width:28px;
+                        height:28px;
+
+                        border-radius:8px;
+
+                        background:{color};
+
+                        box-shadow:0 0 14px {color}40;
+                    "
+                ></div>
+
+                """
+
+            row += "</div>"
+
+            st.html(row,)
