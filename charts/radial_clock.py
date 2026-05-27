@@ -41,47 +41,48 @@ def create_clock_chart(data):
 
         go.Barpolar(
 
-        r=[0.28] * 48,
-        base=[0.72] * 48,
+            r=[0.28] * 24,
 
-        theta=[
-            s * 7.5
-            for s in data["slots"]
-        ],
+            base=[0.72] * 24,
 
-        width=[7.2] * 48,
+            theta=[
+                h * 15
+                for h in data["hours"]
+            ],
 
-        marker_color=colors,
+            width=[13.2] * 24,
 
-        marker_line_color=
-            "rgba(0,0,0,0)",
+            marker_color=colors,
 
-        marker_line_width=1,
+            marker_line_color=
+                "rgba(255,255,255,0.05)",
 
-        opacity=0.95,
+            marker_line_width=1.2,
 
-        customdata=[
+            opacity=0.95,
 
-            (
-                s,
-                data["dominant_users"][i],
-                data["dominant_real_minutes"][i],
-                f"{s//2:02d}:{'00' if s % 2 == 0 else '30'}"
+            customdata=list(
+
+                zip(
+
+                    data["hours"],
+
+                    data["dominant_users"],
+
+                    data["dominant_real_minutes"]
+                )
+            ),
+
+            hovertemplate=(
+
+                "<b>%{customdata[1]}</b><br>"
+
+                "Hour: %{customdata[0]}:00<br>"
+
+                "Minutes: %{customdata[2]:,.0f}"
+
+                "<extra></extra>"
             )
-
-            for i, s in enumerate(data["slots"])
-        ],
-
-        hovertemplate=(
-
-            "<b>%{customdata[1]}</b><br>"
-
-            "Time: %{customdata[3]}<br>"
-
-            "Minutes: %{customdata[2]:,.0f}"
-
-            "<extra></extra>"
-        )
         )
     )
 
@@ -92,20 +93,21 @@ def create_clock_chart(data):
     fig.add_annotation(
 
         x=0.5,
-        y=0.5,
+        y=0.49,
 
         text=(
 
-            "<span style='font-size:16px;color:rgba(255,255,255,0.7)'>"
+            "<span style='font-size:15px;color:rgba(255,255,255,0.7)'>"
             "Peak time"
             "</span><br><br>"
 
             f"<span style='font-size:28px;color:{USER_COLORS[data['peak_user']]};font-weight:700'>"
-            f"{data['peak_hour']}:{data['peak_minute']} - {data['end_hour']}:{data['end_minute']}"            "</span><br>"
+            f"{data['peak_hour']}:00 - {data['end_hour']}:00"
+            "</span><br><br>"
 
             f"<span style='font-size:24px;color:{USER_COLORS[data['peak_user']]};font-weight:700'>"
             f"{data['peak_user']}"
-            "</span><br>"
+            "</span><br><br>"
 
             f"<span style='font-size:15px;color:rgba(255,255,255,0.55)'>"
             f"{data['peak_minutes']:,} listening minutes"
@@ -119,7 +121,6 @@ def create_clock_chart(data):
             color="white"
         )
     )
-    
 
     # ---------------------------------
     # LAYOUT
@@ -133,7 +134,7 @@ def create_clock_chart(data):
 
             radialaxis=dict(
                 visible=False,
-                range=[0, 1.05],
+                range=[0, 1.02],
                 showgrid=False,
                 ticks=""
             ),
@@ -164,10 +165,14 @@ def create_clock_chart(data):
                     "21"
                 ],
 
+                tickfont=dict(
+                    size=16
+                ),
+
                 color="white",
 
                 direction="clockwise",
-                
+
                 showline=False,
                 showgrid=False,
                 ticks="",
