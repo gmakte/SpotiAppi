@@ -258,6 +258,22 @@ def compute_clock(df):
         "dominant_real_minutes":
             dominant_real_minutes,
 
+        "hourly_breakdown":
+        {
+
+            hour: {
+
+                row["user"]:
+                row["normalized"]
+
+                for _, row in grouped[
+                    grouped["hour"] == hour
+                ].iterrows()
+            }
+
+            for hour in hours
+        },
+
         "peak_hour":
             peak_hour,
 

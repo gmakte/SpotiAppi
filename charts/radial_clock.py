@@ -41,23 +41,23 @@ def create_clock_chart(data):
 
         go.Barpolar(
 
-            r=[0.28] * 24,
+            r=[0.30] * 24,
 
-            base=[0.72] * 24,
+            base=[0.50] * 24,
 
             theta=[
                 h * 15
                 for h in data["hours"]
             ],
 
-            width=[13.2] * 24,
+            width=[13] * 24,
 
             marker_color=colors,
 
             marker_line_color=
-                "rgba(255,255,255,0.05)",
+                "rgba(255,255,255,0.04)",
 
-            marker_line_width=1.2,
+            marker_line_width=1,
 
             opacity=0.95,
 
@@ -93,11 +93,11 @@ def create_clock_chart(data):
     fig.add_annotation(
 
         x=0.5,
-        y=0.49,
+        y=0.5,
 
         text=(
 
-            "<span style='font-size:15px;color:rgba(255,255,255,0.7)'>"
+            "<span style='font-size:12px;color:rgba(255,255,255,0.65)'>"
             "Peak time"
             "</span><br><br>"
 
@@ -105,11 +105,11 @@ def create_clock_chart(data):
             f"{data['peak_hour']}:00 - {data['end_hour']}:00"
             "</span><br><br>"
 
-            f"<span style='font-size:24px;color:{USER_COLORS[data['peak_user']]};font-weight:700'>"
+            f"<span style='font-size:20px;color:{USER_COLORS[data['peak_user']]};font-weight:700'>"
             f"{data['peak_user']}"
             "</span><br><br>"
 
-            f"<span style='font-size:15px;color:rgba(255,255,255,0.55)'>"
+            f"<span style='font-size:14px;color:rgba(255,255,255,0.5)'>"
             f"{data['peak_minutes']:,} listening minutes"
             "</span>"
         ),
@@ -117,7 +117,7 @@ def create_clock_chart(data):
         showarrow=False,
 
         font=dict(
-            size=16,
+            size=14,
             color="white"
         )
     )
@@ -134,7 +134,7 @@ def create_clock_chart(data):
 
             radialaxis=dict(
                 visible=False,
-                range=[0, 1.02],
+                range=[0, 0.96],
                 showgrid=False,
                 ticks=""
             ),
@@ -166,10 +166,14 @@ def create_clock_chart(data):
                 ],
 
                 tickfont=dict(
-                    size=16
+                    size=9,
+                    color="white"
                 ),
 
+                ticklabelstep=1,
+
                 color="white",
+                # layer="below traces",
 
                 direction="clockwise",
 
@@ -183,14 +187,14 @@ def create_clock_chart(data):
 
         showlegend=False,
 
-        height=420,
-        width=420,
+        height=260,
+        width=260,
 
         margin=dict(
-            l=20,
-            r=20,
-            t=20,
-            b=20
+            l=0,
+            r=0,
+            t=0,
+            b=0
         ),
 
         paper_bgcolor=

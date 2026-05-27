@@ -1,4 +1,5 @@
 import streamlit as st
+import plotly.graph_objects as go
 
 from services.clock_analysis import (
     compute_clock
@@ -11,159 +12,111 @@ from charts.radial_clock import (
 
 def render_clock(df):
 
-    # ---------------------------------
-    # TITLE
-    # ---------------------------------
-
-    st.title(
-        "When do we listen?"
-    )
-
-    st.caption(
-        "Normalized by total listening activity per user."
-    )
-
-    # ---------------------------------
-    # DATA
-    # ---------------------------------
-
     clock_data = compute_clock(df)
 
-    fig = create_clock_chart(
-        clock_data
-    )
+    fig = create_clock_chart(clock_data)
 
-    # ---------------------------------
-    # LAYOUT
-    # ---------------------------------
+    USER_COLORS = {
+        "Ashanti": "#4f6dff",
+        "Gabi": "#FF8FD8",
+        "Maribel": "#FF8A3D"
+    }
 
-    col1, col2 = st.columns(
-        [0.95, 0.95],
-        gap="small"
-    )
+    SILLY_INSIGHTS = {
+        "Ashanti":
+            "certified midnight overthinker.",
 
-    # ---------------------------------
-    # LEFT SIDE
-    # ---------------------------------
+        "Gabi":
+            "runs purely on dramatic energy.",
 
-    with col1:
+        "Maribel":
+            "treats mornings like a movie montage."
+    }
 
-        st.plotly_chart(
-            fig,
-            use_container_width=True,
-            config={
-                "displayModeBar": False
-            }
-        )
+    # =====================================================
+    # TITLE
+    # =====================================================
 
-        # ---------------------------------
-        # LEGEND
-        # ---------------------------------
-
-        st.markdown(
+    st.markdown(
         """
-<div style="
-display:flex;
-justify-content:center;
-margin-top:-6px;
-margin-bottom:0px;
-width:100%;
-">
+    <h1 style="
+    margin-bottom:-38px;
+    padding-bottom:0;
+    ">
+    When do we listen?
+    </h1>
+    """,
+        unsafe_allow_html=True
+    )
 
-<div style="
-display:flex;
-justify-content:center;
-align-items:center;
-gap:24px;
-padding:12px 22px;
-border-radius:20px;
-background:rgba(255,255,255,0.02);
-border:1px solid rgba(255,255,255,0.04);
-">
+    st.markdown(
+        """
+<style>
 
-<!-- ITEM -->
+.normalized-wrapper{
+    position:relative;
+    display:inline-block;
+    margin-top:50px;
+    margin-bottom:-8px;
+}
 
-<div style="
-width:110px;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:10px;
-">
+.normalized-pill{
+    padding:12px 22px;
+    border-radius:18px;
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.05);
+    font-size:15px;
+    font-weight:700;
+    color:#7CFF9E;
+    cursor:help;
+}
 
-<div style="
-width:15px;
-height:15px;
-border-radius:50%;
-background:#4f6dff;
-flex-shrink:0;
-"></div>
+.normalized-tooltip{
 
-<span style="
-color:white;
-font-size:17px;
-line-height:1;
-">
-Ashanti
-</span>
+    visibility:hidden;
+    opacity:0;
 
+    width:280px;
+
+    background:#111;
+
+    color:rgba(255,255,255,0.82);
+
+    padding:14px 16px;
+
+    border-radius:14px;
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    position:absolute;
+
+    z-index:999;
+
+    top:120%;
+    left:0;
+
+    transition:0.2s;
+
+    font-size:13px;
+    line-height:1.5;
+}
+
+.normalized-wrapper:hover .normalized-tooltip{
+    visibility:visible;
+    opacity:1;
+}
+
+</style>
+
+<div class="normalized-wrapper">
+
+<div class="normalized-pill">
+Normalized
 </div>
 
-<!-- ITEM -->
+<div class="normalized-tooltip">
 
-<div style="
-width:110px;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:10px;
-">
-
-<div style="
-width:15px;
-height:15px;
-border-radius:50%;
-background:#FF8FD8;
-flex-shrink:0;
-"></div>
-
-<span style="
-color:white;
-font-size:17px;
-line-height:1;
-">
-Gabi
-</span>
-
-</div>
-
-<!-- ITEM -->
-
-<div style="
-width:110px;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:10px;
-">
-
-<div style="
-width:15px;
-height:15px;
-border-radius:50%;
-background:#FF8A3D;
-flex-shrink:0;
-"></div>
-
-<span style="
-color:white;
-font-size:17px;
-line-height:1;
-">
-Maribel
-</span>
-
-</div>
+Each person's listening activity is divided by their own total listening time so the chart compares listening habits rather than raw listening volume.
 
 </div>
 
@@ -172,228 +125,414 @@ Maribel
         unsafe_allow_html=True
     )
 
-    # ---------------------------------
-    # RIGHT SIDE
-    # ---------------------------------
+    # =====================================================
+    # GLOBAL SPACING
+    # =====================================================
 
-    with col2:
+    st.markdown(
+        """
+    <style>
+
+    div[data-testid="column"] {
+        padding-top: 0rem !important;
+    }
+
+    .block-container {
+        padding-top: 1.2rem !important;
+    }
+
+    </style>
+    """,
+        unsafe_allow_html=True
+    )
+
+    left_col, right_col = st.columns(
+        [0.70, 1.30],
+        gap="small"
+    )
+
+    # =====================================================
+    # LEFT SIDE
+    # =====================================================
+
+    with left_col:
+
+        fig.update_layout(
+
+            height=430,
+            width=430,
+
+            margin=dict(
+                l=0,
+                r=0,
+                t=0,
+                b=0
+            ),
+
+            polar=dict(
+
+                radialaxis=dict(
+                    visible=False,
+                    range=[0, 0.90]
+                ),
+
+                angularaxis=dict(
+
+                    tickmode="array",
+
+                    tickvals=[
+                        0,
+                        45,
+                        90,
+                        135,
+                        180,
+                        225,
+                        270,
+                        315
+                    ],
+
+                    ticktext=[
+                        "0",
+                        "3",
+                        "6",
+                        "9",
+                        "12",
+                        "15",
+                        "18",
+                        "21"
+                    ],
+
+                    tickfont=dict(
+                        size=14,
+                        color="white"
+                    ),
+
+                    ticks="",
+
+                    rotation=90,
+
+                    direction="clockwise"
+                )
+            )
+        )
+
+        st.plotly_chart(
+            fig,
+            use_container_width=False,
+            config={
+                "displayModeBar": False
+            }
+        )
+
+    # =====================================================
+    # RIGHT SIDE
+    # =====================================================
+
+    with right_col:
 
         share_data = sorted(
-
-            clock_data[
-                "listening_share"
-            ],
-
-            key=lambda x:
-                x["share"],
-
+            clock_data["listening_share"],
+            key=lambda x: x["share"],
             reverse=True
         )
 
-        USER_COLORS = {
+        st.markdown(
+            """
+    <div style="
+    font-size:28px;
+    font-weight:800;
+    color:white;
+    margin-top:-100px;
+    margin-bottom:8px;
+    ">
+    Listening personality overview
+    </div>
+    """,
 
-            "Ashanti": "#4f6dff",
-            "Gabi": "#FF8FD8",
-            "Maribel": "#FF8A3D"
-        }
+            unsafe_allow_html=True
+        )
 
-        # ---------------------------------
-        # INSIGHTS
-        # ---------------------------------
+        card_cols = st.columns(3)
 
-        SILLY_INSIGHTS = {
-
-            "Ashanti":
-                "certified midnight overthinker.",
-
-            "Gabi":
-                "runs purely on dramatic energy.",
-
-            "Maribel":
-                "treats mornings like a movie montage."
-        }
-
-        html = """
-
-<div style="
-padding:22px;
-margin-top:-34px;
-margin-left:-36px;
-border-radius:24px;
-background:rgba(255,255,255,0.02);
-border:1px solid rgba(255,255,255,0.06);
-max-width:720px;
-">
-
-<div style="
-font-size:24px;
-font-weight:700;
-color:white;
-margin-bottom:26px;
-line-height:1;
-">
-Listening personality overview
-</div>
-
-"""
-
-        # ---------------------------------
-        # USER BLOCKS
-        # ---------------------------------
-
-        for person in share_data:
+        for idx, person in enumerate(share_data):
 
             color = USER_COLORS[
                 person["user"]
             ]
 
-            silly_text = SILLY_INSIGHTS[
+            silly = SILLY_INSIGHTS[
                 person["user"]
             ]
 
-            html += f"""
+            with card_cols[idx]:
 
+                st.markdown(
+                    f"""
+    <div style="
+    padding-right:20px;
+    ">
+
+    <div style="
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:2px;
+    margin-top:-50px;
+    ">
+
+    <div style="
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:{color};
+    "></div>
+
+    <div style="
+    font-size:22px;
+    font-weight:800;
+    color:{color};
+    ">
+    {person["user"]} - {person["share"]}%
+    </div>
+
+    </div>
+
+    <div style="
+    font-size:15px;
+    color:rgba(255,255,255,0.58);
+    margin-bottom:14px;
+    ">
+    {person["minutes"]:,} total listening minutes
+    </div>
+
+    <div style="
+    height:12px;
+    width:100%;
+    background:rgba(255,255,255,0.05);
+    border-radius:999px;
+    overflow:hidden;
+    margin-bottom:28px;
+    ">
+
+    <div style="
+    height:100%;
+    width:{person["share"]}%;
+    background:{color};
+    border-radius:999px;
+    ">
+    </div>
+
+    </div>
+    </div>
+    """,
+                unsafe_allow_html=True
+            )
+
+        st.markdown(
+            """
+    <div style="
+    font-size:28px;
+    font-weight:800;
+    color:white;
+    margin-top:0px;
+    margin-bottom:8px;
+    ">
+    Peak windows
+    </div>
+
+    """,
+        unsafe_allow_html=True
+    )
+        
+        peak_cols = st.columns(3)
+        
+        for idx, person in enumerate(share_data):
+
+            color = USER_COLORS[
+                person["user"]
+            ]
+
+            silly = SILLY_INSIGHTS[
+                person["user"]
+            ]
+
+            with peak_cols[idx]:
+
+                st.markdown(
+                    f"""
+
+        <div style="
+        padding-right:20px;
+        ">
+        
+        <div style="
+        font-size:24px;
+        font-weight:800;
+        color:white;
+        margin-bottom:14px;
+        ">
+        {person["peak_hour"]}:00 — {person["peak_end_hour"]}:00
+        </div>
+
+        <div style="
+        font-size:16px;
+        line-height:1.6;
+        font-weight:600;
+        color:{color};
+        ">
+        {silly}
+        </div>
+
+        </div>
+        """,
+                        unsafe_allow_html=True
+                    )
+
+        # =====================================================
+        # PROPORTIONAL VIEW
+        # =====================================================
+
+        st.markdown(
+            """
 <div style="
-margin-bottom:28px;
+font-size:22px;
+font-weight:800;
+color:white;
+margin-top:1px;
+margin-bottom:4px;
 ">
-
-<div style="
-display:flex;
-justify-content:space-between;
-align-items:flex-start;
-gap:16px;
-">
-
-<!-- LEFT -->
-
-<div style="
-flex:1;
-min-width:0;
-">
-
-<!-- NAME -->
-
-<div style="
-display:flex;
-align-items:center;
-gap:10px;
-margin-bottom:8px;
-">
-
-<div style="
-width:16px;
-height:16px;
-border-radius:50%;
-background:{color};
-flex-shrink:0;
-"></div>
-
-<div style="
-font-size:18px;
-font-weight:700;
-color:{color};
-line-height:1;
-">
-{person["user"]}
+Proportional view
 </div>
-
-<div style="
-font-size:18px;
-font-weight:700;
-color:{color};
-line-height:1;
-">
-{person["share"]}%
-</div>
-
-</div>
-
-<!-- MINUTES -->
 
 <div style="
 font-size:13px;
 color:rgba(255,255,255,0.55);
-margin-left:26px;
-margin-bottom:12px;
+margin-bottom:14px;
 ">
-{person["minutes"]:,} min total listening
+Normalized listening share per hour
 </div>
-
-<!-- BAR -->
-
-<div style="
-height:10px;
-width:70%;
-border-radius:999px;
-background:rgba(255,255,255,0.05);
-overflow:hidden;
-margin-left:26px;
-">
-
-<div style="
-height:100%;
-width:{person["share"]}%;
-background:{color};
-border-radius:999px;
-">
-</div>
-
-</div>
-
-</div>
-
-<!-- RIGHT CARD -->
-
-<div style="
-width:120px;
-min-width:120px;
-padding:10px 12px;
-border-radius:14px;
-background:rgba(255,255,255,0.025);
-border:1px solid rgba(255,255,255,0.04);
-text-align:right;
-">
-
-<div style="
-font-size:10px;
-letter-spacing:1px;
-text-transform:uppercase;
-color:rgba(255,255,255,0.35);
-margin-bottom:8px;
-">
-Peak window
-</div>
-
-<div style="
-font-size:14px;
-font-weight:700;
-color:white;
-margin-bottom:12px;
-line-height:1.2;
-">
-{person["peak_hour"]}:00 — {person["peak_end_hour"]}:00
-</div>
-
-<div style="
-font-size:13px;
-font-weight:500;
-color:{color};
-line-height:1.45;
-">
-{silly_text}
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-"""
-
-        html += "</div>"
-
-        st.markdown(
-            html,
+""",
             unsafe_allow_html=True
+        )
+
+        hours = clock_data["hours"]
+
+        users = [
+            "Ashanti",
+            "Gabi",
+            "Maribel"
+        ]
+
+        normalized_map = {
+            user: []
+            for user in users
+        }
+
+        for hour in hours:
+
+            hour_data = clock_data[
+                "hourly_breakdown"
+            ][hour]
+
+            total = sum(
+                hour_data.values()
+            )
+
+            for user in users:
+
+                value = hour_data.get(
+                    user,
+                    0
+                )
+
+                normalized = (
+                    value / total
+                    if total > 0
+                    else 0
+                )
+
+                normalized_map[user].append(
+                    normalized
+                )
+
+        fig2 = go.Figure()
+
+        for user in users:
+
+            fig2.add_trace(
+
+                go.Bar(
+
+                    x=hours,
+
+                    y=normalized_map[user],
+
+                    marker_color=USER_COLORS[user],
+
+                    hovertemplate=(
+
+                        f"<b>{user}</b><br>"
+                        "Hour: %{x}:00<br>"
+                        "Normalized share: %{y:.0%}"
+                        "<extra></extra>"
+                    )
+                )
+            )
+
+        fig2.update_layout(
+
+            barmode="stack",
+
+            height=240,
+
+            margin=dict(
+                l=0,
+                r=0,
+                t=0,
+                b=0
+            ),
+
+            paper_bgcolor=
+                "rgba(0,0,0,0)",
+
+            plot_bgcolor=
+                "rgba(0,0,0,0)",
+
+            showlegend=False,
+
+            bargap=0.08,
+
+            xaxis=dict(
+
+                tickmode="linear",
+
+                tick0=0,
+
+                dtick=1,
+
+                color="rgba(255,255,255,0.75)",
+
+                showgrid=False,
+
+                zeroline=False
+            ),
+
+            yaxis=dict(
+
+                visible=False,
+
+                range=[0, 1],
+
+                showgrid=False,
+
+                zeroline=False
+            )
+        )
+
+        st.plotly_chart(
+            fig2,
+            use_container_width=True,
+            config={
+                "displayModeBar": False
+            }
         )
