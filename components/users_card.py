@@ -1,10 +1,7 @@
 import streamlit as st
+import pandas as pd
 import base64
 from pathlib import Path
-
-from services.user_services import (
-    get_user_profiles
-)
 
 
 def image_to_base64(path):
@@ -20,102 +17,64 @@ def image_to_base64(path):
         ).decode()
 
 
-def render_users_card(df):
+def render_users_card():
 
-    profiles = get_user_profiles(df)
-
-    users = [
-        {
-            "name": "Gabi",
-            "image": "../assets/avatars/gabi.png"
-        },
-
-        {
-            "name": "Ashanti",
-            "image": "../assets/avatars/ash.png"
-        },
-
-        {
-            "name": "Maribel",
-            "image": "../assets/avatars/maribel.png"
-        }
-    ]
-
-    # ---------------------------------
-    # MERGE METRICS INTO USERS
-    # ---------------------------------
-
-    profile_map = {
-
-        p["name"]: p
-        for p in profiles
-    }
-
-    for user in users:
-
-        user.update(
-            profile_map[user["name"]]
-        )
-
-    # ---------------------------------
-    # HTML
-    # ---------------------------------
+    profiles = pd.read_csv(
+        'data/user_profiles.csv'
+    )
 
     html = """
-<div class="users-card">
+        <div class="users-card">
 
-<div class="users-title">
-Meet the Listeners
-</div>
+        <div class="users-title">
+        Meet the Listeners
+        </div>
 
-<div class="users-wrapper">
-"""
+        <div class="users-wrapper">
+    """
 
-    for user in users:
+    for _, user in profiles.iterrows():
 
         encoded = image_to_base64(
-            user["image"]
+            f"../assets/avatars/{user['name'].lower()}.png"
         )
 
         html += f"""
-<div class="user-block">
+            <div class="user-block">
 
-<img
-src="data:image/png;base64,{encoded}"
-class="user-avatar"/>
+            <img
+            src="data:image/png;base64,{encoded}"
+            class="user-avatar"/>
 
-<div class="user-name">
-{user['name']}
-</div>
+            <div class="user-name">
+            {user['name']}
+            </div>
 
-<div class="user-stats">
+            <div class="user-stats">
 
-<div>
-<b>{user['Songs']:,}</b><br>
-Songs
-</div>
+                <div>
+                <b>{user['Songs']:,}</b><br>
+                Songs
+                </div>
 
-<div>
-<b>{user['Artists']:,}</b><br>
-Artists
-</div>
+                <div>
+                <b>{user['Artists']:,}</b><br>
+                Artists
+                </div>
 
-<div>
-<b>{user['Spotify Years']}</b><br>
-Spotify Years
-</div>
+                <div>
+                <b>{user['Spotify Years']}</b><br>
+                Years
+                </div>
 
-</div>
+            </div>
 
-</div>
-"""
+            </div>
+        """
 
     html += """
-</div>
-</div>
-"""
+        </div>
+        </div>
+    """
 
-    st.markdown(
-        html,
-        unsafe_allow_html=True
-    )
+    st.html(html)
