@@ -123,10 +123,6 @@
 
     background-color: #0b0b0b;
 
-    border: 1px solid rgba(255,255,255,0.06);
-
-    border-radius: 22px;
-
     padding: 32px;
 
     height: 100%;
@@ -154,7 +150,15 @@
 
 .user-block {
 
-    text-align: center;
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
 }
 
 .user-avatar {
@@ -173,7 +177,7 @@
 
     margin-top: 18px;
 
-    font-size: 17px;
+    font-size: 22px;
 
     color: white;
 
@@ -182,7 +186,7 @@
 
 .user-stats {
 
-    margin-top: 16px;
+    margin-top: 18px;
 
     display: flex;
 
@@ -190,7 +194,7 @@
 
     gap: 18px;
 
-    font-size: 13px;
+    font-size: 16px;
 
     color: #A0A0A0;
 
