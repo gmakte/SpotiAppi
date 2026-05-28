@@ -27,7 +27,6 @@ jsonschema-specifications==2025.9.1
 MarkupSafe==3.0.3
 matplotlib-inline==0.2.2
 narwhals==2.21.2
-networkx @ file:///C:/miniconda3/conda-bld/networkx_1765378660274/work
 numpy==2.4.6
 openpyxl==3.1.5
 packaging==26.0
