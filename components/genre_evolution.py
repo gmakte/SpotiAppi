@@ -24,7 +24,7 @@ def render_taste_evolution():
     <div class="taste-evolution-title-inline">
 
         <span class="taste-evolution-title">
-            How has our taste evolved?
+            Our taste evolution
         </span>
 
         <div class="taste-evolution-info-floating">

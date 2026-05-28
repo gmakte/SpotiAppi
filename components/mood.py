@@ -24,9 +24,23 @@ def render_mood(df):
         "Maribel": "Energetic Beast"
     }
 
-    st.markdown(
-        "### Mood Fingerprints"
-    )
+    st.html("""
+    <div class="taste-evolution-title-inline">
+
+        <span class="taste-evolution-title">
+            Emotional Grid
+        </span>
+
+        <div class="taste-evolution-info-floating">
+            <span class="taste-evolution-info-icon">i</span>
+
+            <div class="taste-evolution-tooltip">
+                Each percentage shows how much of a person’s listening belongs to a given mood category.
+            </div>
+        </div>
+
+    </div>
+    """)
 
     bottom_left, bottom_right = st.columns(
         [5.2, 1.2]

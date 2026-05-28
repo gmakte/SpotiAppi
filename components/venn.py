@@ -17,8 +17,17 @@ from charts.venn_chart import (
 
 def render_venn(df):
 
-    st.markdown("### Common Interests in Artists")
+    st.html("""
+    <div class="taste-evolution-title-inline"
+    style="margin-top:25px;">
 
+        <span class="taste-evolution-title">
+            Common Interests in Artists
+        </span>
+
+    </div>
+    """)
+    
     # ---------------------------------
     # USER SELECTION
     # ---------------------------------

@@ -6,10 +6,6 @@
 
     background-color:#0b0b0b;
 
-    border:1px solid rgba(255,255,255,0.06);
-
-    border-radius:22px;
-
     padding:32px;
 
     min-height:220px;
@@ -29,7 +25,7 @@
 }
 
 .hero-title {
-    font-size: 54px;
+    font-size: 60px;
     font-weight: 800;
     line-height: 0.95;
     margin-bottom: 18px;
@@ -44,7 +40,7 @@
 
 .hero-subtitle {
     color: #A0A0A0;
-    font-size: 22px;
+    font-size: 17px;
     line-height: 1.5;
     margin-bottom: 20px;
 }

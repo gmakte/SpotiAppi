@@ -258,7 +258,7 @@ def render_clock():
 
             <div class="peak-window-text"
             style="color:{color};">
-
+            <div style="height:8px;"></div>
             {silly}
             </div>
 
@@ -271,6 +271,7 @@ def render_clock():
 
         st.markdown(
             """
+        <div style="height:16px;"></div>
         <div class="section-title">
         Proportional view
         </div>
