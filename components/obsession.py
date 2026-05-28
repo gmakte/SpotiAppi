@@ -8,6 +8,10 @@ from charts.obsession_chart import (
     create_obsession_chart
 )
 
+from assets.palette import (
+    USER_COLORS,
+    UI_COLORS
+)
 
 def render_obsession(df):
 
@@ -103,12 +107,6 @@ def render_obsession(df):
 
     with col2:
 
-        colors = {
-            0: "#4f6dff",
-            1: "#FF8FD8",
-            2: "#FF8A3D"
-        }
-
         personality_map = {
 
             "Ashanti": {
@@ -147,14 +145,14 @@ def render_obsession(df):
 padding:18px;
 margin-bottom:18px;
 border-radius:18px;
-background:#151515;
-border:1px solid rgba(255,255,255,0.05);
+background:{UI_COLORS["card"]};
+border:1px solid {UI_COLORS["border"]};
 ">
 
 <div style="
 font-size:26px;
 font-weight:700;
-color:{colors.get(i, 'white')};
+color:{USER_COLORS[row['user']]};
 margin-bottom:10px;
 ">
 {row['user']}
@@ -163,7 +161,7 @@ margin-bottom:10px;
 <div style="
 font-size:18px;
 font-weight:600;
-color:white;
+color:{UI_COLORS["text_primary"]};
 margin-bottom:4px;
 ">
 {archetype}
@@ -172,7 +170,7 @@ margin-bottom:4px;
 <div style="
 font-size:14px;
 font-style:italic;
-color:#A0A0A0;
+color:{UI_COLORS["text_secondary"]};
 margin-bottom:10px;
 line-height:1.4;
 ">

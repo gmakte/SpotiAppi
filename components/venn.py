@@ -1,5 +1,7 @@
 import streamlit as st
 
+from assets.palette import UI_COLORS
+
 from services.overlap_service import (
     compute_song_overlaps
 )
@@ -95,14 +97,14 @@ def render_venn(df):
 padding:14px;
 margin-bottom:12px;
 border-radius:14px;
-background:#151515;
-border:1px solid rgba(255,255,255,0.05);
+background:{UI_COLORS["card"]};
+border:1px solid {UI_COLORS["border"]};
 ">
 
 <div style="
 font-size:18px;
 font-weight:600;
-color:white;
+color:{UI_COLORS["text_primary"]};
 ">
 {row['master_metadata_album_artist_name']}
 </div>

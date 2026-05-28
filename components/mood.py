@@ -1,5 +1,7 @@
 import streamlit as st
 
+from assets.palette import USER_COLORS
+
 from services.mood_service import (
     compute_mood_distribution
 )
@@ -28,14 +30,14 @@ def render_mood(df):
         use_container_width=True
     )
 
-    st.markdown("""
+    st.markdown(f"""
 
     <div class="mood-diagnosis-wrapper">
 
     <div class="mood-diagnosis-card">
 
     <div class="diagnosis-name"
-    style="color:#4f6dff;">
+    style="color:{USER_COLORS['Ashanti']};">
     Ashanti
     </div>
 
@@ -48,7 +50,7 @@ def render_mood(df):
     <div class="mood-diagnosis-card">
 
     <div class="diagnosis-name"
-    style="color:#FF8A3D;">
+    style="color:{USER_COLORS['Maribel']};">
     Maribel
     </div>
 
@@ -61,7 +63,7 @@ def render_mood(df):
     <div class="mood-diagnosis-card">
 
     <div class="diagnosis-name"
-    style="color:#FF8FD8;">
+    style="color:{USER_COLORS['Gabi']};">
     Gabi
     </div>
 
