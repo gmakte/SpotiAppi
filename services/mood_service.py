@@ -55,3 +55,55 @@ def compute_mood_distribution(df):
     )
 
     return mood_df
+
+def compute_hourly_mood_map(df):
+
+    mood_map = {}
+
+    users = df["user"].unique()
+
+    for user in users:
+
+        user_df = df[
+            df["user"] == user
+        ]
+
+        hourly_moods = []
+
+        for hour in range(24):
+
+            hour_df = user_df[
+                user_df["hour"] == hour
+            ]
+
+            # no listening during this hour
+            if len(hour_df) == 0:
+
+                hourly_moods.append(
+                    "Dark"
+                )
+
+                continue
+
+            # count moods
+            mood_counts = (
+
+                hour_df
+
+                .groupby("mood")
+
+                .size()
+            )
+
+            dominant_mood = (
+
+                mood_counts.idxmax()
+            )
+
+            hourly_moods.append(
+                dominant_mood
+            )
+
+        mood_map[user] = hourly_moods
+
+    return mood_map

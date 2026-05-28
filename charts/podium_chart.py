@@ -13,9 +13,15 @@ def create_podium_chart(rankings):
     hours = rankings["hours"]
 
     colors = [
-        "#4f6dff",
-        "#FF8FD8",
-        "#FF8A3D"
+        "rgba(79,109,255,0.60)",
+        "rgba(255,143,216,0.60)",
+        "rgba(255,138,61,0.60)"
+    ]
+
+    border_colors = [
+        "rgba(79,109,255,0.38)",
+        "rgba(255,143,216,0.38)",
+        "rgba(255,138,61,0.38)"
     ]
 
     medals = [
@@ -48,7 +54,11 @@ def create_podium_chart(rankings):
             ),
 
             marker=dict(
-                color=colors
+                color=colors,
+                line=dict(
+                    color=border_colors,
+                    width=3
+                )
             ),
 
             width=0.55
