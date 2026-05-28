@@ -1,39 +1,57 @@
 import streamlit as st
+import json
+import pandas as pd
 
 from assets.palette import UI_COLORS
-
-from services.overlap_service import (
-    compute_song_overlaps
-)
-
-from services.shared_artists import (
-    compute_shared_artists
-)
 
 from charts.venn_chart import (
     create_venn_chart
 )
 
 
-def render_venn(df):
+def render_venn():
 
     st.html("""
-    <div class="taste-evolution-title-inline"
-    style="margin-top:25px;">
+        <div class="clock-section-header">
 
+            <div class="taste-evolution-title-inline">
+
+                <span class="taste-evolution-title">
+                    Common Interests in Artists
+                </span>
         <span class="taste-evolution-title"
         style="margin-bottom:40px;">
             Common Interests in Artists
         </span>
 
-    </div>
+                <div class="taste-evolution-info-floating">
+
+                    <span class="taste-evolution-info-icon">
+                        i
+                    </span>
+
+                    <div class="taste-evolution-tooltip">
+                        Explore musical overlaps across listener groups.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
     """)
-    
+
     # ---------------------------------
     # USER SELECTION
     # ---------------------------------
 
-    users = sorted(df["user"].dropna().unique())
+    with open("data/user_overlaps.json") as f:
+        overlaps = json.load(f)
+
+    with open("data/shared_artists.json") as f:
+        shared_data = json.load(f)
+
+    users = ["Ashanti", "Gabi", "Maribel"]
 
     selected_users = st.pills(
 
@@ -50,28 +68,26 @@ def render_venn(df):
         st.warning("Select at least 2 users.")
         return
 
-    # ---------------------------------
-    # FILTER DATA
-    # ---------------------------------
+    selected_users = sorted(selected_users)
 
-    filtered_df = df[
-        df["user"].isin(selected_users)
-    ]
+    overlap_data = next(
 
-    # ---------------------------------
-    # BUILD DATA
-    # ---------------------------------
-
-    overlap_data = compute_song_overlaps(
-        filtered_df
-    )
-
-    shared_artists = compute_shared_artists(
-        filtered_df
+        overlap
+        for overlap in overlaps
+        if sorted(overlap["users"]) == selected_users
     )
 
     fig = create_venn_chart(
         overlap_data
+    )
+
+    match = next(
+        x for x in shared_data
+        if sorted(x["users"]) == sorted(selected_users)
+    )
+
+    shared_artists = pd.DataFrame(
+        match["shared_artists"]
     )
 
     # ---------------------------------
@@ -101,23 +117,21 @@ def render_venn(df):
 
         for _, row in shared_artists.iterrows():
 
-            st.markdown(
+            st.html(
                 f"""
-<div style="
-padding:14px;
-margin-bottom:12px;
-border-radius:14px;
-background:{UI_COLORS["card"]};
-border:1px solid {UI_COLORS["border"]};
-">
+                <div style="
+                padding:14px;
+                margin-bottom:12px;
+                border-radius:14px;
+                background:{UI_COLORS["card"]};
+                border:1px solid {UI_COLORS["border"]};
+                ">
 
-<div style="
-font-size:18px;
-font-weight:600;
-color:{UI_COLORS["text_primary"]};
-">
-{row['master_metadata_album_artist_name']}
-</div>
-""",
-                unsafe_allow_html=True
-            )
+                <div style="
+                font-size:18px;
+                font-weight:600;
+                color:{UI_COLORS["text_primary"]};
+                ">
+                {row['artist']}
+                </div>
+                """)

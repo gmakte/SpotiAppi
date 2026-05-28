@@ -1,0 +1,64 @@
+[
+  {
+    "mode": 2,
+    "users": [
+      "Ashanti",
+      "Gabi"
+    ],
+    "totals": [
+      6114,
+      8454
+    ],
+    "a_only": 4382,
+    "b_only": 6722,
+    "ab": 1732
+  },
+  {
+    "mode": 2,
+    "users": [
+      "Ashanti",
+      "Maribel"
+    ],
+    "totals": [
+      6114,
+      1435
+    ],
+    "a_only": 5653,
+    "b_only": 974,
+    "ab": 461
+  },
+  {
+    "mode": 2,
+    "users": [
+      "Gabi",
+      "Maribel"
+    ],
+    "totals": [
+      8454,
+      1435
+    ],
+    "a_only": 7975,
+    "b_only": 956,
+    "ab": 479
+  },
+  {
+    "mode": 3,
+    "users": [
+      "Ashanti",
+      "Gabi",
+      "Maribel"
+    ],
+    "totals": [
+      6114,
+      8454,
+      1435
+    ],
+    "a_only": 4271,
+    "b_only": 6593,
+    "c_only": 845,
+    "ab": 1382,
+    "ac": 111,
+    "bc": 129,
+    "abc": 350
+  }
+]
