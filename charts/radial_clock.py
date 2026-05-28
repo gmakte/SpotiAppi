@@ -86,27 +86,31 @@ def create_clock_chart(data):
     fig.add_annotation(
 
         x=0.5,
-        y=0.5,
+        y=0.51,
 
         align="center",
 
         text=(
 
-            "<span style='font-size:12px;color:rgba(255,255,255,0.55)'>"
-            "Most consistent listener award"
-            "</span><br><br>"
+            "<span style='font-size:17px;color:rgba(255,255,255,0.45);letter-spacing:1px;'>"
+            "Most likely to be <br>listening is:"
+            "</span><br><br><br>"
 
-            f"<span style='font-size:22px;color:{USER_COLORS[data['peak_user']]};font-weight:800'>"
+            f"<span style='font-size:38px;color:{USER_COLORS[data['peak_user']]};font-weight:800'>"
             f"{data['peak_user']}"
             "</span><br><br>"
 
-            f"<span style='font-size:18px;color:rgba(255,255,255,0.88)'>"
-            f"{data['peak_hour']}:00 – {data['end_hour']}:00"
-            "</span><br><br>"
-
-            f"<span style='font-size:14px;color:rgba(255,255,255,0.5)'>"
-            f"{data['peak_minutes']:,} listening minutes"
+            f"<span style='font-size:20px;color:rgba(255,255,255,0.45)'>"
+            f"between<br><br>"
             "</span>"
+
+            f"<span style='font-size:20px;color:{USER_COLORS[data['peak_user']]}'>"
+            f"{data['peak_hour']}:00 and {data['end_hour']}:00"
+            "</span><br>"
+
+            # f"<span style='font-size:13px;color:rgba(255,255,255,0.45)'>"
+            # f"{data['peak_minutes']:,} listening minutes"
+            # "</span>"
         ),
 
         showarrow=False,
