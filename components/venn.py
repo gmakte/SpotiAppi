@@ -28,7 +28,8 @@ def render_venn():
                     </span>
 
                     <div class="taste-evolution-tooltip">
-                        Explore musical overlaps across listener groups.
+                        Explore musical overlaps across listener groups. <br>
+                        The numbers in the intersection represent shared artists.
                     </div>
 
                 </div>
