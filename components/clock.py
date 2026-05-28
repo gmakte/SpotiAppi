@@ -4,14 +4,6 @@ from services.clock_analysis import compute_clock
 from charts.radial_clock import (create_clock_chart)
 from assets.palette import UI_COLORS
 
-
-MOOD_IMAGE_BY_USER = {
-    "Ashanti": "assets/avatars/ashanti_mood.png",
-    "Gabi": "assets/avatars/gabi_mood.png",
-    "Maribel": "assets/avatars/maribel_mood.png"
-}
-
-
 def render_clock(df):
 
     clock_data = compute_clock(df)
@@ -81,8 +73,8 @@ def render_clock(df):
         width: 250px;
         padding: 8px 10px;
         border-radius: 10px;
-        background: rgba(14, 18, 28, 0.96);
-        border: 1px solid rgba(255,255,255,0.12);
+        background:{UI_COLORS["tooltip"]};
+        border:1px solid {UI_COLORS["border_soft"]};
         color: rgba(255,255,255,0.92);
         font-size: 12px;
         font-weight: 500;
