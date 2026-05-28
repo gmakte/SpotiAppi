@@ -51,12 +51,8 @@ render_mood(df)
 
 # ROW 4
 with st.container(border=True):
-    st.write("More ideas?")
-
-# ROW 5
-with st.container(border=True):
     st.write("Listening clock")
 
-# ROW 6
+# ROW 5
 with st.container(border=True):
     render_taste_evolution(df)
