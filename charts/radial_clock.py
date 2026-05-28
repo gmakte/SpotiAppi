@@ -92,16 +92,16 @@ def create_clock_chart(data):
 
         text=(
 
-            "<span style='font-size:12px;color:rgba(255,255,255,0.65)'>"
-            "Peak time"
+            "<span style='font-size:12px;color:rgba(255,255,255,0.55)'>"
+            "Most consistent listener award"
             "</span><br><br>"
 
-            f"<span style='font-size:28px;color:{USER_COLORS[data['peak_user']]};font-weight:700'>"
-            f"{data['peak_hour']}:00 - {data['end_hour']}:00"
-            "</span><br><br>"
-
-            f"<span style='font-size:20px;color:{USER_COLORS[data['peak_user']]};font-weight:700'>"
+            f"<span style='font-size:22px;color:{USER_COLORS[data['peak_user']]};font-weight:800'>"
             f"{data['peak_user']}"
+            "</span><br><br>"
+
+            f"<span style='font-size:18px;color:rgba(255,255,255,0.88)'>"
+            f"{data['peak_hour']}:00 – {data['end_hour']}:00"
             "</span><br><br>"
 
             f"<span style='font-size:14px;color:rgba(255,255,255,0.5)'>"
