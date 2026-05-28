@@ -1,4 +1,16 @@
 import plotly.graph_objects as go
+from assets.palette import USER_COLORS
+
+
+def hex_to_rgba(hex_color, alpha=0.60):
+
+    hex_color = hex_color.lstrip("#")
+
+    r = int(hex_color[0:2], 16)
+    g = int(hex_color[2:4], 16)
+    b = int(hex_color[4:6], 16)
+
+    return f"rgba({r},{g},{b},{alpha})"
 
 
 def create_podium_chart(rankings):
@@ -13,15 +25,21 @@ def create_podium_chart(rankings):
     hours = rankings["hours"]
 
     colors = [
-        "rgba(79,109,255,0.60)",
-        "rgba(255,143,216,0.60)",
-        "rgba(255,138,61,0.60)"
+        hex_to_rgba(
+            USER_COLORS[user],
+            0.60
+        )
+
+        for user in users
     ]
 
     border_colors = [
-        "rgba(79,109,255,0.38)",
-        "rgba(255,143,216,0.38)",
-        "rgba(255,138,61,0.38)"
+        hex_to_rgba(
+            USER_COLORS[user],
+            0.38
+        )
+
+        for user in users
     ]
 
     medals = [
@@ -61,7 +79,13 @@ def create_podium_chart(rankings):
                 )
             ),
 
-            width=0.55
+            width=0.55,
+
+            hovertemplate=(
+                "<b>%{x}</b><br>"
+                "%{y:,.0f} listening hours"
+                "<extra></extra>"
+            )
         )
     )
 
