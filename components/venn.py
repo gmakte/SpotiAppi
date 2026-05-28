@@ -21,7 +21,8 @@ def render_venn(df):
     <div class="taste-evolution-title-inline"
     style="margin-top:25px;">
 
-        <span class="taste-evolution-title">
+        <span class="taste-evolution-title"
+        style="margin-bottom:40px;">
             Common Interests in Artists
         </span>
 
