@@ -1,4 +1,4 @@
-def compute_song_overlaps(df):
+def compute_overlaps(df):
 
     users = sorted(df["user"].dropna().unique())
 
@@ -77,5 +77,3 @@ def compute_song_overlaps(df):
 
             "abc": len(A & B & C),
         }
-
-compute_song_overlaps = compute_song_overlaps

@@ -1,0 +1,115 @@
+[
+  {
+    "users": [
+      "Ashanti",
+      "Gabi"
+    ],
+    "shared_artists": [
+      {
+        "artist": "The Neighbourhood",
+        "score": 0.45468766683296424
+      },
+      {
+        "artist": "Tyler, The Creator",
+        "score": 0.2698917595130352
+      },
+      {
+        "artist": "Mac Miller",
+        "score": 0.2466289873317836
+      },
+      {
+        "artist": "Childish Gambino",
+        "score": 0.2331798395998871
+      },
+      {
+        "artist": "Radiohead",
+        "score": 0.22731604332198052
+      }
+    ]
+  },
+  {
+    "users": [
+      "Ashanti",
+      "Maribel"
+    ],
+    "shared_artists": [
+      {
+        "artist": "Billie Eilish",
+        "score": 3.345302562932253
+      },
+      {
+        "artist": "Adele",
+        "score": 0.5357001537583875
+      },
+      {
+        "artist": "Taylor Swift",
+        "score": 0.5305498705125397
+      },
+      {
+        "artist": "Ariana Grande",
+        "score": 0.5045695660663692
+      },
+      {
+        "artist": "Beyonc\u00e9",
+        "score": 0.34330595550818954
+      }
+    ]
+  },
+  {
+    "users": [
+      "Gabi",
+      "Maribel"
+    ],
+    "shared_artists": [
+      {
+        "artist": "Arctic Monkeys",
+        "score": 0.4315841321662817
+      },
+      {
+        "artist": "Bruno Mars",
+        "score": 0.3131040372794635
+      },
+      {
+        "artist": "Red Hot Chili Peppers",
+        "score": 0.3072754327338789
+      },
+      {
+        "artist": "Linkin Park",
+        "score": 0.2580247024274244
+      },
+      {
+        "artist": "Coldplay",
+        "score": 0.23470245357802055
+      }
+    ]
+  },
+  {
+    "users": [
+      "Ashanti",
+      "Gabi",
+      "Maribel"
+    ],
+    "shared_artists": [
+      {
+        "artist": "Adele",
+        "score": 0.15249336948032713
+      },
+      {
+        "artist": "Queen",
+        "score": 0.13970944380341419
+      },
+      {
+        "artist": "The Weeknd",
+        "score": 0.12173651688280075
+      },
+      {
+        "artist": "Hozier",
+        "score": 0.1196533288797565
+      },
+      {
+        "artist": "Rihanna",
+        "score": 0.10004447559613441
+      }
+    ]
+  }
+]

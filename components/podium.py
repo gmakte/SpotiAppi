@@ -6,7 +6,7 @@ from charts.podium_chart import (
 )
 
 
-def render_podium(df):
+def render_podium():
 
     rankings = pd.read_csv('data/top_listeners.csv')
 

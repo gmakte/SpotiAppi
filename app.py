@@ -29,7 +29,7 @@ df = load_data()
 col1, col2 = st.columns([1, 2])
 
 with col1:
-    render_hero(df)
+    render_hero()
 
 with col2:
     render_users_card()
@@ -38,10 +38,10 @@ with col2:
 col2, col3 = st.columns([1, 2])
 
 with col2:
-    render_podium(df)
+    render_podium()
 
 with col3:
-    render_venn(df)
+    render_venn()
 
 
 render_obsession(df)

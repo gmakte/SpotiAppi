@@ -56,7 +56,7 @@
 import streamlit as st
 from assets.palette import USER_COLORS
 
-def render_hero(df):
+def render_hero():
 
     html = f"""
         <div class="main-card">
