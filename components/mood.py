@@ -1,19 +1,15 @@
 import streamlit as st
+import pandas as pd
 
 from assets.palette import USER_COLORS
-
-from services.mood_service import (
-    compute_mood_distribution
-)
 
 from charts.mood_chart import (
     create_mood_chart
 )
 
+def render_mood():
 
-def render_mood(df):
-
-    mood_df = compute_mood_distribution(df)
+    mood_df = pd.read_csv('data/mood_distribution.csv')
 
     fig = create_mood_chart(mood_df)
 

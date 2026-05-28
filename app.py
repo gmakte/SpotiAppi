@@ -6,11 +6,9 @@ from components.hero import render_hero
 from components.users_card import render_users_card
 from components.podium import render_podium
 from components.venn import render_venn
-from services.shared_artists import (compute_shared_artists)
-from services.obsession_service import (compute_obsession_metrics)
 from components.obsession import render_obsession
-from components.mood import (render_mood)
-from components.clock import (render_clock)
+from components.mood import render_mood
+from components.clock import render_clock
 from components.genre_evolution import render_taste_evolution
 
 st.set_page_config(
@@ -53,11 +51,10 @@ with col3:
 st.markdown('</div>', unsafe_allow_html=True)
 
 
-
 # ROW 3
 st.markdown('<div class="snap-section">', unsafe_allow_html=True)
 
-render_obsession(df)
+render_obsession()
 
 st.markdown('</div>', unsafe_allow_html=True)
 
@@ -66,7 +63,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 # ROW 4
 st.markdown('<div class="snap-section">', unsafe_allow_html=True)
 
-render_mood(df)
+render_mood()
 
 st.markdown('</div>', unsafe_allow_html=True)
 
