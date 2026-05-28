@@ -240,6 +240,83 @@
     line-height: 1.4;
 }
 
+.taste-evolution-title-inline {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:0.6rem;
+
+    margin-bottom:0.2rem;
+}
+
+.taste-evolution-title {
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    color:white;
+
+    line-height:1.1;
+}
+
+.taste-evolution-info-floating {
+
+    position:relative;
+
+    z-index:100000;
+
+    font-size:0.78rem;
+
+    color:rgba(255,255,255,0.42);
+
+    cursor:help;
+
+    transform:translateY(2px);
+}
+
+.taste-evolution-tooltip {
+
+    position:absolute;
+
+    top:1.8rem;
+
+    left:-1rem;
+
+    width:340px;
+
+    padding:1rem 1.1rem;
+
+    border-radius:18px;
+
+    background:rgba(12,12,14,0.96);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    color:rgba(255,255,255,0.9);
+
+    font-size:0.93rem;
+
+    line-height:1.65;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:all 0.18s ease;
+
+    z-index:999;
+}
+
+.taste-evolution-info-floating:hover .taste-evolution-tooltip {
+
+    opacity:1;
+
+    visibility:visible;
+}
+
 .chart-aligned-controls {
 
     margin-left:2.2rem;
@@ -294,20 +371,6 @@
     flex-shrink:0;
 
     transition:all 0.18s ease;
-}
-
-.taste-evolution-legend-item:hover {
-
-    transform:translateY(-1px) scale(1.04);
-
-    color:white;
-}
-
-.taste-evolution-legend-item:hover .taste-evolution-legend-dot {
-
-    transform:scale(1.35);
-
-    box-shadow:0 0 8px rgba(255,255,255,0.28);
 }
 
 .taste-evolution-chart {

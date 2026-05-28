@@ -17,20 +17,51 @@ ARCHETYPES = {
 }
 
 def render_taste_evolution(df):
-    st.markdown(
-        "### How has our taste evolved?"
-    )
+    st.html("""
+    <div class="taste-evolution-title-inline">
 
-    controls_col, legend_col = st.columns([1, 5])
+        <span class="taste-evolution-title">
+            How has our taste evolved?
+        </span>
+
+        <span class="taste-evolution-info-floating">
+            ⓘ
+
+            <div class="taste-evolution-tooltip">
+                Streamgraphs show the relative share of genres listened to over time.<br><br>
+
+                • Full timeline: full Spotify history<br>
+                • Aligned: same comparison period for everyone<br><br>
+
+                Use “Choose genre” to isolate one genre on a shared baseline.
+            </div>
+
+        </span>
+
+    </div>
+    """)
+
+    controls_col, legend_col = st.columns([1.8, 4.2])
 
     with controls_col:
 
-        timeline_mode = st.pills(
-            label="Timeline mode",
-            options=["Full timeline", "Aligned"],
-            selection_mode="single",
-            default="Aligned"
-        )
+        pills_col, genre_col = st.columns([2, 1])
+
+        with pills_col:
+
+            timeline_mode = st.pills(
+                label="Timeline mode",
+                options=["Full timeline", "Aligned"],
+                selection_mode="single",
+                default="Aligned"
+            )
+
+        with genre_col:
+
+            selected_genre = st.selectbox(
+                "Choose genre",
+                ["All"] + list(GENRE_COLORS.keys())
+            )
 
     # shared legend
     legend_html = """
@@ -68,10 +99,11 @@ def render_taste_evolution(df):
             monthly = prepare_genre_evolution(
                 df=df,
                 user=user,
-                timeline_mode=timeline_mode
+                timeline_mode=timeline_mode,
+                selected_genre=selected_genre
             )
 
-            render_genre_evolution_chart(monthly)
+            render_genre_evolution_chart(monthly, selected_genre)
 
         with label_col:
             st.html(

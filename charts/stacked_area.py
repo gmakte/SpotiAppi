@@ -4,7 +4,7 @@ import streamlit as st
 from assets.palette import GENRE_COLORS
 GENRE_ORDER = list(GENRE_COLORS.keys())
 
-def render_genre_evolution_chart(monthly):
+def render_genre_evolution_chart(monthly, selected_genre):
 
     fig = go.Figure()
 
@@ -13,6 +13,11 @@ def render_genre_evolution_chart(monthly):
         # skip missing genres safely
         if genre not in monthly.columns:
             continue
+
+        is_active = (
+            selected_genre == "All"
+            or genre == selected_genre
+        )
 
         fig.add_trace(
             go.Scatter(
@@ -37,9 +42,18 @@ def render_genre_evolution_chart(monthly):
 
                 fillcolor=GENRE_COLORS[genre],
 
-                opacity=0.1,
+                opacity=1 if is_active else 0.08,
+
+                hoverinfo=(
+                    "skip"
+                    if not is_active
+                    else None
+                ),
 
                 hovertemplate=(
+                    None
+                    if not is_active
+                    else
                     "<b>%{fullData.name}</b><br>"
                     "%{x|%b %Y}<br>"
                     "%{y:.1%}<extra></extra>"

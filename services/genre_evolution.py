@@ -2,7 +2,7 @@ import pandas as pd
 from assets.palette import GENRE_COLORS
 GENRE_ORDER = list(GENRE_COLORS.keys())
 
-def prepare_genre_evolution(df, user, timeline_mode):
+def prepare_genre_evolution(df, user, timeline_mode, selected_genre):
 
     user_df = df[df["user"] == user].copy()
 
@@ -35,6 +35,13 @@ def prepare_genre_evolution(df, user, timeline_mode):
 
     # normalize to percentages
     monthly["pct"] = monthly["ms_played"] / totals
+
+    # only AFTER normalization
+    if selected_genre != "All":
+
+        monthly = monthly[
+            monthly["genre"] == selected_genre
+        ]
 
     pivot_df = (
         monthly
