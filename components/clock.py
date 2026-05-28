@@ -2,6 +2,7 @@ import streamlit as st
 
 from services.clock_analysis import compute_clock
 from charts.radial_clock import (create_clock_chart)
+from assets.palette import UI_COLORS
 
 
 MOOD_IMAGE_BY_USER = {
@@ -32,7 +33,7 @@ def render_clock(df):
             font-size:24px;
             line-height:1;
             font-weight:700;
-            color:#ffffff;
+            color:{UI_COLORS["text_primary"]};
         ">
             24h Listening Clock
         </div>
@@ -63,8 +64,8 @@ def render_clock(df):
         width: 18px;
         height: 18px;
         border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.45);
-        color: rgba(255,255,255,0.9);
+        border:1px solid {UI_COLORS["border_soft"]};
+        color:{UI_COLORS["text_primary"]};;
         font-size: 12px;
         font-weight: 700;
         line-height: 1;
@@ -196,4 +197,3 @@ def render_clock(df):
                 "displayModeBar": False
             }
         )
-    # Right column removed: peak-hour images and boxes disabled per request.
