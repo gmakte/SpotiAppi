@@ -20,7 +20,7 @@ st.set_page_config(
 load_css()
 
 # LOAD DATA
-df = load_data()
+#df = load_data()
 
 # ROW 1
 st.markdown('<div class="snap-section">', unsafe_allow_html=True)
