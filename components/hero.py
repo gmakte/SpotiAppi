@@ -25,7 +25,7 @@ def render_hero(df):
                 </div>
 
                 <div class="hero-subtitle">
-                    Exploring our listening habits,
+                    Exploring our listening habits,<br>
                     similarities and personalities.
                 </div>
 

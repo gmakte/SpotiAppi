@@ -2,6 +2,22 @@
     padding-top: 2rem;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+section.main {
+    scroll-snap-type: y proximity;
+}
+
+.snap-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
 .main-card {
 
     background-color:#0b0b0b;
@@ -25,9 +41,10 @@
 }
 
 .hero-title {
-    font-size: 60px;
+    font-size: 70px;
     font-weight: 800;
     line-height: 0.95;
+    margin-top: 25px;
     margin-bottom: 18px;
     display:flex;
     flex-direction:column;
@@ -39,10 +56,11 @@
 }
 
 .hero-subtitle {
-    color: #A0A0A0;
-    font-size: 17px;
+    color: white;
+    font-size: 20px;
     line-height: 1.5;
     margin-bottom: 20px;
+
 }
 
 .metrics-row {
@@ -136,16 +154,17 @@
 
     color: white;
 
-    margin-bottom: 34px;
+    margin-bottom: 44px;
+    
 }
 
 .users-wrapper {
 
-    display: flex;
-
-    justify-content: space-around;
-
+    display:flex;
     align-items: center;
+    justify-content:space-evenly;
+    gap:60px;
+    width:100%;
 }
 
 .user-block {
@@ -163,8 +182,8 @@
 
 .user-avatar {
 
-    width: 100px;
-    height: 100px;
+    width: 250px;
+    height: 250px;
 
     border-radius: 50%;
 
@@ -177,7 +196,7 @@
 
     margin-top: 18px;
 
-    font-size: 22px;
+    font-size: 30px;
 
     color: white;
 
@@ -194,7 +213,7 @@
 
     gap: 18px;
 
-    font-size: 16px;
+    font-size: 20px;
 
     color: #A0A0A0;
 
@@ -205,7 +224,7 @@
 
     color: white;
 
-    font-size: 16px;
+    font-size: 25px;
 }
 
 .mood-diagnosis-wrapper {
@@ -782,3 +801,4 @@
 
     margin-bottom:10px;
 }
+
