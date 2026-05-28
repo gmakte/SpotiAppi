@@ -64,18 +64,6 @@ def create_podium_chart(rankings):
             x=users,
             y=hours,
 
-            text=[
-                f"{h:,.0f}h"
-                for h in hours
-            ],
-
-            textposition="outside",
-
-            textfont=dict(
-                size=20,
-                color="white"
-            ),
-
             marker=dict(
                 color=colors,
                 line=dict(
@@ -102,19 +90,39 @@ def create_podium_chart(rankings):
                 source=podium_icons[i],
 
                 x=user,
-                y=hour + max(hours) * 0.15,
+                y=hour + max(hours) * 0.12,
 
                 xref="x",
                 yref="y",
 
-                sizex=0.60,
-                sizey=max(hours) * 0.11,
+                sizex=1.05,
+                sizey=max(hours) * 0.36,
 
                 xanchor="center",
                 yanchor="middle",
 
                 layer="above"
             )
+        )
+
+        fig.add_annotation(
+
+            x=user,
+            y=-max(hours) * 0.08,
+
+            text=f"<b>{user}</b>",
+
+            showarrow=False,
+
+            xanchor="center",
+            yanchor="top",
+
+            font=dict(
+                size=22,
+                color="white",
+            ),
+
+            bgcolor="rgba(0,0,0,0)"
         )
 
     # ---------------------------------
@@ -135,7 +143,7 @@ def create_podium_chart(rankings):
             l=20,
             r=20,
             t=40,
-            b=20
+                b=70
         ),
 
         showlegend=False,
@@ -143,6 +151,8 @@ def create_podium_chart(rankings):
         xaxis=dict(
             showgrid=False,
             zeroline=False,
+
+            showticklabels=False,
 
             tickfont=dict(
                 size=18,
@@ -156,8 +166,8 @@ def create_podium_chart(rankings):
             showticklabels=False,
 
             range=[
-                0,
-                max(hours) * 1.28
+                -max(hours) * 0.18,
+                max(hours) * 1.45
             ]
         ),
 
