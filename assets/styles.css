@@ -239,3 +239,146 @@
 
     line-height: 1.4;
 }
+
+.chart-aligned-controls {
+
+    margin-left:2.2rem;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:0.7rem;
+}
+
+.taste-evolution-legend {
+
+    margin-left:13rem;
+
+    margin-top:1.9rem;
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:1.1rem;
+
+    align-items:center;
+}
+
+.taste-evolution-legend-item {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:0.45rem;
+
+    font-size:1rem;
+
+    color:rgba(255,255,255,0.82);
+
+    transition:all 0.18s ease;
+
+    cursor:default;
+}
+
+.taste-evolution-legend-dot {
+
+    width:12px;
+
+    height:12px;
+
+    border-radius:50%;
+
+    flex-shrink:0;
+
+    transition:all 0.18s ease;
+}
+
+.taste-evolution-legend-item:hover {
+
+    transform:translateY(-1px) scale(1.04);
+
+    color:white;
+}
+
+.taste-evolution-legend-item:hover .taste-evolution-legend-dot {
+
+    transform:scale(1.35);
+
+    box-shadow:0 0 8px rgba(255,255,255,0.28);
+}
+
+.taste-evolution-chart {
+
+    flex:1;
+}
+
+.taste-evolution-card {
+
+    width:160px;
+
+    height:160px;
+
+    flex-shrink:0;
+
+    background:rgba(17,17,17,0.92);
+
+    border:1.5px solid rgba(255,255,255,0.06);
+
+    border-radius:22px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:18px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:all 0.25s ease;
+}
+
+.taste-evolution-name {
+
+    font-size:24px;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+}
+
+.taste-evolution-archetype {
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    line-height:1.2;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.taste-evolution-card) {
+
+    margin-bottom:-2rem;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.taste-evolution-legend) {
+
+    align-items:center;
+}
+
+div[data-testid="stPlotlyChart"] {
+
+    margin-left:-0.8rem;
+}

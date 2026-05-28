@@ -11,7 +11,7 @@ from services.obsession_service import (compute_obsession_metrics)
 from components.obsession import render_obsession
 from components.users_card import (render_users_card)
 from components.mood import (render_mood)
-
+from components.genre_evolution import render_taste_evolution
 
 st.set_page_config(
     page_title="Spotify Dashboard",
@@ -54,12 +54,9 @@ with st.container(border=True):
     st.write("More ideas?")
 
 # ROW 5
-col4, col5 = st.columns([1, 2])
+with st.container(border=True):
+    st.write("Listening clock")
 
-with col4:
-    with st.container(border=True):
-        st.write("Listening clock")
-
-with col5:
-    with st.container(border=True):
-        st.write("Taste evolution")
+# ROW 6
+with st.container(border=True):
+    render_taste_evolution(df)
