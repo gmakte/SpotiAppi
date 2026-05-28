@@ -3,8 +3,8 @@ SILLY_INSIGHTS = {
         "Certified midnight overthinker.",
 
     "Gabi":
-        "Runs purely on dramatic energy.",
+        "Runs purely on <br> dramatic energy.",
 
     "Maribel":
-        "Treats mornings like a movie montage."
+        "Treats mornings like <br> a movie montage."
 }

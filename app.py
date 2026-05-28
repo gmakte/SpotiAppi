@@ -25,6 +25,7 @@ load_css()
 df = load_data()
 
 # ROW 1
+st.markdown('<div class="snap-section">', unsafe_allow_html=True)
 
 col1, col2 = st.columns([1, 2])
 
@@ -34,7 +35,13 @@ with col1:
 with col2:
     render_users_card()
 
+st.markdown('</div>', unsafe_allow_html=True)
+
+
+
 # ROW 2
+st.markdown('<div class="snap-section">', unsafe_allow_html=True)
+
 col2, col3 = st.columns([1, 2])
 
 with col2:
@@ -43,14 +50,40 @@ with col2:
 with col3:
     render_venn()
 
+st.markdown('</div>', unsafe_allow_html=True)
+
+
+
+# ROW 3
+st.markdown('<div class="snap-section">', unsafe_allow_html=True)
 
 render_obsession(df)
 
-# ROW 3
-render_mood(df)
+st.markdown('</div>', unsafe_allow_html=True)
+
+
 
 # ROW 4
-render_clock()
+st.markdown('<div class="snap-section">', unsafe_allow_html=True)
+
+render_mood(df)
+
+st.markdown('</div>', unsafe_allow_html=True)
+
+
 
 # ROW 5
+st.markdown('<div class="snap-section">', unsafe_allow_html=True)
+
+render_clock()
+
+st.markdown('</div>', unsafe_allow_html=True)
+
+
+
+# ROW 6
+st.markdown('<div class="snap-section">', unsafe_allow_html=True)
+
 render_taste_evolution()
+
+st.markdown('</div>', unsafe_allow_html=True)

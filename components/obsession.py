@@ -19,22 +19,24 @@ def render_obsession(df):
 
     fig = create_obsession_chart(metrics)
 
-    st.markdown(
-        """
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:0;">
-        <div style="font-size:20px;line-height:1;font-weight:700;color:#ffffff;">
+    st.html("""
+    <div class="taste-evolution-title-inline">
+
+        <span class="taste-evolution-title">
             Obsessive behavior analysis
-        </div>
-        <span class="obsession-info-icon">i
-            <span class="obsession-info-tooltip">
-                <strong>Replay intensity</strong>: average number of plays per unique song for a listener.
-                <strong> 
-                <strong>Skip rate</strong>: proportion of skipped streams out of total streams for a listener.
         </span>
+
+        <div class="taste-evolution-info-floating">
+            <span class="taste-evolution-info-icon">i</span>
+
+            <div class="taste-evolution-tooltip">
+                <strong>Replay intensity</strong>: average number of plays per unique song for a listener.<br><br> 
+                <strong>Skip rate</strong>: proportion of skipped streams out of total streams for a listener.
+            </div>
+        </div>
+
     </div>
-    """,
-        unsafe_allow_html=True
-    )
+    """)
 
     # tooltip CSS for obsession info
     st.markdown(

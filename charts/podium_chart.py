@@ -1,4 +1,5 @@
 import plotly.graph_objects as go
+import base64
 from assets.palette import USER_COLORS
 
 
@@ -11,6 +12,13 @@ def hex_to_rgba(hex_color, alpha=0.60):
     b = int(hex_color[4:6], 16)
 
     return f"rgba({r},{g},{b},{alpha})"
+
+def load_icon(path):
+
+    with open(path, "rb") as f:
+        encoded = base64.b64encode(f.read()).decode()
+
+    return f"data:image/png;base64,{encoded}"
 
 
 def create_podium_chart(rankings):
@@ -42,10 +50,10 @@ def create_podium_chart(rankings):
         for user in users
     ]
 
-    medals = [
-        "🥈",
-        "🥇",
-        "🥉"
+    podium_icons = [
+        load_icon("assets/icons/second.png"),
+        load_icon("assets/icons/first.png"),
+        load_icon("assets/icons/third.png")
     ]
 
     fig = go.Figure()
@@ -57,17 +65,14 @@ def create_podium_chart(rankings):
             y=hours,
 
             text=[
-                f"{m}<br>{h:,.0f}h"
-                for m, h in zip(
-                    medals,
-                    hours
-                )
+                f"{h:,.0f}h"
+                for h in hours
             ],
 
             textposition="outside",
 
             textfont=dict(
-                size=22,
+                size=20,
                 color="white"
             ),
 
@@ -88,6 +93,29 @@ def create_podium_chart(rankings):
             )
         )
     )
+
+    for i, (user, hour) in enumerate(zip(users, hours)):
+
+        fig.add_layout_image(
+
+            dict(
+                source=podium_icons[i],
+
+                x=user,
+                y=hour + max(hours) * 0.15,
+
+                xref="x",
+                yref="y",
+
+                sizex=0.60,
+                sizey=max(hours) * 0.11,
+
+                xanchor="center",
+                yanchor="middle",
+
+                layer="above"
+            )
+        )
 
     # ---------------------------------
     # LAYOUT
@@ -125,7 +153,12 @@ def create_podium_chart(rankings):
         yaxis=dict(
             showgrid=False,
             zeroline=False,
-            showticklabels=False
+            showticklabels=False,
+
+            range=[
+                0,
+                max(hours) * 1.28
+            ]
         ),
 
         font=dict(
