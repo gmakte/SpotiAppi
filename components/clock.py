@@ -1,41 +1,43 @@
 import streamlit as st
+import json
 
-from services.clock_analysis import (compute_clock,compute_normalized_share)
 from charts.radial_clock import (create_clock_chart)
 from services.mood_service import compute_hourly_mood_map
 from assets.palette import (USER_COLORS,MOOD_COLORS)
 from assets.text import SILLY_INSIGHTS
 from charts.proportional_chart import (create_proportional_chart)
 
-def render_clock(df):
+def render_clock():
 
-    clock_data = compute_clock(df)
+    with open("data/clock_insights.json") as f:
+        clock_data = json.load(f)
 
     # =====================================================
     # TITLE
     # =====================================================
 
-    st.markdown(
-        """
-    <div style="
-        display:flex;
-        align-items:center;
-        gap:8px;
-        margin-bottom:5px;
-        margin-top:30px;
-        padding-bottom:0;
-    ">
-        <div class="section-title">
-            24h Listening Clock
+    st.html("""
+        <div class="clock-section-header">
+
+            <div class="taste-evolution-title-inline">
+
+                <span class="taste-evolution-title">
+                    24h Listening Clock
+                </span>
+
+                <div class="taste-evolution-info-floating">
+                    <span class="taste-evolution-info-icon">i</span>
+
+                    <div class="taste-evolution-tooltip">
+                        Hours are normalized by each person’s total listening, highlighting who most owns each moment of the day.
+                    </div>
+                </div>
+
+            </div>
+
         </div>
-        <span class="clock-info-icon">
-            i
-            <span class="clock-info-tooltip">These are normalized dominant hours: each hour is weighted by a user's share of listening, so the ring shows who leads after normalization.</span>
-        </span>
-    </div>
-    """,
-        unsafe_allow_html=True
-    )
+    """)
+
 
     fig = create_clock_chart(clock_data)
 
@@ -197,8 +199,7 @@ def render_clock(df):
 
         share_data = sorted(
             clock_data["listening_share"],
-            key=lambda x: x["share"],
-            reverse=True
+            key=lambda x: x["user"]
         )
 
         st.markdown(
@@ -283,7 +284,9 @@ def render_clock(df):
 
         hours = clock_data["hours"]
 
-        normalized_map = compute_normalized_share(clock_data)
+
+        with open("data/normalized_clock_share.json") as f:
+            normalized_map = json.load(f)
 
         fig2 = create_proportional_chart(
             normalized_map,
