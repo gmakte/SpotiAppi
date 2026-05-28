@@ -1,8 +1,6 @@
 import streamlit as st
+import pandas as pd
 
-from services.obsession_service import (
-    compute_obsession_metrics
-)
 
 from charts.obsession_chart import (
     create_obsession_chart
@@ -13,9 +11,9 @@ from assets.palette import (
     UI_COLORS
 )
 
-def render_obsession(df):
+def render_obsession():
 
-    metrics = compute_obsession_metrics(df)
+    metrics = pd.read_csv("data/obsession_metrics.csv")
 
     fig = create_obsession_chart(metrics)
 
