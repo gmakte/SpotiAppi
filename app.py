@@ -54,4 +54,4 @@ render_mood(df)
 render_clock(df)
 
 # ROW 5
-render_taste_evolution(df)
+render_taste_evolution()

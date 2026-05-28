@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 from charts.stacked_area import (
     render_genre_evolution_chart
@@ -16,7 +17,9 @@ ARCHETYPES = {
     "Maribel": "The Shape-Shifter"
 }
 
-def render_taste_evolution(df):
+df = pd.read_csv('data/genre_evolution.csv')
+
+def render_taste_evolution():
     st.html("""
     <div class="taste-evolution-title-inline">
 
