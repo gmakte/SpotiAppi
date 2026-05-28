@@ -43,13 +43,55 @@ def render_taste_evolution():
     </div>
     """)
 
+    st.markdown("""
+    <style>
+
+    div[data-baseweb="select"] {
+        max-width: 180px;
+    }  
+                
+
+    .taste-evolution-legend-inline {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+
+        margin-top: 34px;
+    }
+
+    .taste-evolution-legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        white-space: nowrap;
+    }
+
+    .taste-evolution-legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+    }
+
+    </style>
+    """, unsafe_allow_html=True)
+
     controls_col = st.container()
 
     with controls_col:
 
-        controls_row = st.columns([1.8, 1.2])
+        controls_row = st.columns([0.1, 0.68, 0.55, 2.5])
 
         with controls_row[0]:
+            st.empty()
+
+        # LEFT — timeline pills
+        with controls_row[1]:
+
+            st.markdown("""
+            <div style="padding-left: 600px;">
+            """, unsafe_allow_html=True)
 
             timeline_mode = st.pills(
                 label="Timeline mode",
@@ -58,36 +100,51 @@ def render_taste_evolution():
                 default="Aligned"
             )
 
-        with controls_row[1]:
+            st.markdown("</div>", unsafe_allow_html=True)
+
+        # CENTER — legend
+        with controls_row[3]:
+
+            st.markdown(
+                '<div style="margin-top: 14px;"></div>',
+                unsafe_allow_html=True
+            )
+
+            legend_html = """
+            <div class="taste-evolution-legend-inline">
+            """
+
+            for genre, color in GENRE_COLORS.items():
+
+                legend_html += f"""
+                <div class="taste-evolution-legend-item">
+
+                    <div
+                        class="taste-evolution-legend-dot"
+                        style="background:{color};"
+                    ></div>
+
+                    <span>{genre}</span>
+
+                </div>
+                """
+
+            legend_html += "</div>"
+
+            st.html(legend_html)
+
+        # RIGHT — selectbox
+        with controls_row[2]:
+
+            st.markdown(
+                '<div style="margin-top: 14px;"></div>',
+                unsafe_allow_html=True
+            )
 
             selected_genre = st.selectbox(
                 "Choose genre",
                 ["All"] + list(GENRE_COLORS.keys())
             )
-
-        legend_html = """
-        <div class="taste-evolution-legend">
-        """
-
-        for genre, color in GENRE_COLORS.items():
-
-            legend_html += f"""
-            <div class="taste-evolution-legend-item">
-
-                <div
-                    class="taste-evolution-legend-dot"
-                    style="background:{color};"
-                ></div>
-
-                <span>{genre}</span>
-
-            </div>
-            """
-
-        legend_html += "</div>"
-
-        st.html(legend_html)
-
 
     users = df["user"].unique()
     for user in users:

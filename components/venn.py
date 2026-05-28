@@ -19,6 +19,10 @@ def render_venn():
                 <span class="taste-evolution-title">
                     Common Interests in Artists
                 </span>
+        <span class="taste-evolution-title"
+        style="margin-bottom:40px;">
+            Common Interests in Artists
+        </span>
 
                 <div class="taste-evolution-info-floating">
 

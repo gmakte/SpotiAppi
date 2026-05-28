@@ -19,7 +19,8 @@ def render_clock():
     st.html("""
         <div class="clock-section-header">
 
-            <div class="taste-evolution-title-inline">
+            <div class="taste-evolution-title-inline"
+            style="margin-bottom:5px;">
 
                 <span class="taste-evolution-title">
                     24h Listening Clock
