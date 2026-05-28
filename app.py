@@ -51,7 +51,7 @@ render_obsession(df)
 render_mood(df)
 
 # ROW 4
-render_clock(df)
+render_clock()
 
 # ROW 5
 render_taste_evolution()
