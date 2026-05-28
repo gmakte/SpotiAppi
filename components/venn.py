@@ -14,15 +14,12 @@ def render_venn():
     st.html("""
         <div class="clock-section-header">
 
-            <div class="taste-evolution-title-inline">
+            <div class="taste-evolution-title-inline"
+            style="margin-bottom:-15px;">
 
                 <span class="taste-evolution-title">
                     Common Interests in Artists
                 </span>
-        <span class="taste-evolution-title"
-        style="margin-bottom:40px;">
-            Common Interests in Artists
-        </span>
 
                 <div class="taste-evolution-info-floating">
 
