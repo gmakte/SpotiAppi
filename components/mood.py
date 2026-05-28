@@ -13,66 +13,95 @@ from charts.mood_chart import (
 
 def render_mood(df):
 
-    mood_df = compute_mood_distribution(
-        df
-    )
+    mood_df = compute_mood_distribution(df)
 
-    fig = create_mood_chart(
-        mood_df
-    )
+    fig = create_mood_chart(mood_df)
+
+    mood_titles = {
+
+        "Ashanti": "Melancholic Soul",
+        "Gabi": "Dreamy Queen",
+        "Maribel": "Energetic Beast"
+    }
 
     st.markdown(
         "### Mood Fingerprints"
     )
 
-    st.plotly_chart(
-        fig,
-        use_container_width=True
+    bottom_left, bottom_right = st.columns(
+        [5.2, 1.2]
     )
 
-    st.markdown(f"""
+    # =====================================================
+    # LEFT → HEATMAP
+    # =====================================================
 
-    <div class="mood-diagnosis-wrapper">
+    with bottom_left:
 
-    <div class="mood-diagnosis-card">
+        st.plotly_chart(
+            fig,
+            use_container_width=True,
+            config={
+                "displayModeBar": False
+            }
+        )
 
-    <div class="diagnosis-name"
-    style="color:{USER_COLORS['Ashanti']};">
-    Ashanti
-    </div>
+    # =====================================================
+    # RIGHT → GLOWING CARDS
+    # =====================================================
 
-    <div class="diagnosis-title">
-    Melancholic Soul
-    </div>
+    with bottom_right:
 
-    </div>
+        card_offsets = [140, 135, 135]
 
-    <div class="mood-diagnosis-card">
+        for idx, (user, title) in enumerate(mood_titles.items()):
 
-    <div class="diagnosis-name"
-    style="color:{USER_COLORS['Maribel']};">
-    Maribel
-    </div>
+            color = USER_COLORS[user]
 
-    <div class="diagnosis-title">
-    Energetic Beast
-    </div>
+            st.html(
+                f"""
+            <div style="
+            background:#111111;
+            border-radius:24px;
+            border:1.5px solid {color}40;
+            box-shadow:
+            0 0 18px {color}20,
+            0 0 42px {color}12;
+            width:220px;
+            height:100px;
 
-    </div>
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
 
-    <div class="mood-diagnosis-card">
+            text-align:center;
 
-    <div class="diagnosis-name"
-    style="color:{USER_COLORS['Gabi']};">
-    Gabi
-    </div>
+            margin-bottom:14px;
 
-    <div class="diagnosis-title">
-    Dreamy Queen
-    </div>
+            transform:translateY({card_offsets[idx]}px);
+            ">
 
-    </div>
+            <div style="
+            font-size:22px;
+            font-weight:800;
+            line-height:1;
+            margin-bottom:14px;
+            color:{color};
+            ">
+            {user}
+            </div>
 
-    </div>
+            <div style="
+            font-size:15px;
+            font-weight:600;
+            line-height:1.35;
+            color:white;
+            max-width:160px;
+            ">
+            {title}
+            </div>
 
-    """, unsafe_allow_html=True)
+            </div>
+            """
+            )

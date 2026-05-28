@@ -41,9 +41,9 @@ def create_mood_chart(mood_df):
         "Happy",
         "Energetic",
         "Calm",
+        "Melancholic",
         "Dreamy",
-        "Dark",
-        "Melancholic"
+        "Dark"
     ]
 
     mood_order = [
@@ -54,8 +54,9 @@ def create_mood_chart(mood_df):
         if mood in mood_df["mood"].unique()
     ]
 
-    users = list(
-        mood_df["user"].unique()
+    users = sorted(
+        mood_df["user"].unique(),
+        reverse=True
     )
 
     fig = go.Figure()
@@ -100,11 +101,11 @@ def create_mood_chart(mood_df):
             # STRONGER CONTRAST
             # ---------------------------------
 
-            normalized = percentage / 100
+            normalized = percentage / 60
 
             opacity = (
-                normalized ** 0.90
-            ) * 0.92 + 0.03
+                normalized ** 0.95
+            ) * 0.95 + 0.08
 
             r, g, b = hex_to_rgb(
                 MOOD_COLORS[mood.lower()]
@@ -124,24 +125,24 @@ def create_mood_chart(mood_df):
                 type="rect",
 
                 x0=col_i + 0.03,
-                x1=col_i + 0.97,
+                x1=col_i + 0.94,
 
                 y0=row_i + 0.03,
-                y1=row_i + 0.97,
+                y1=row_i + 0.94,
 
                 fillcolor=fill,
 
                 line=dict(
 
-                    width=2 if percentage == max_percentage else 1,
+                    width=3 if percentage == max_percentage else 1,
 
                     color=(
 
-                        "rgba(255,255,255,0.45)"
+                        "rgba(255,255,255,0.55)"
 
                         if percentage == max_percentage
 
-                        else "rgba(255,255,255,0.03)"
+                        else "rgba(255,255,255,0.02)"
                     )
                 )
             )
@@ -194,39 +195,17 @@ def create_mood_chart(mood_df):
 
                 x=x_pos,
 
-                y=1.08,
+                y=1.18,
 
-                sizex=0.16,
+                sizex=0.34,
 
-                sizey=0.16,
+                sizey=0.34,
 
                 xanchor="center",
 
                 yanchor="middle",
 
                 layer="above"
-            )
-        )
-
-        fig.add_annotation(
-
-            x=x_pos,
-
-            y=1.01,
-
-            xref="x",
-
-            yref="paper",
-
-            text=mood,
-
-            showarrow=False,
-
-            font=dict(
-
-                size=12,
-
-                color="rgba(255,255,255,0.70)"
             )
         )
 
@@ -261,25 +240,13 @@ def create_mood_chart(mood_df):
 
     fig.update_yaxes(
 
-        tickmode="array",
-
-        tickvals=[
-            i + 0.5
-            for i in range(
-                len(users)
-            )
-        ],
-
-        ticktext=users,
+        showticklabels=False,
 
         autorange="reversed",
 
         showgrid=False,
-        zeroline=False,
 
-        tickfont=dict(
-            size=18
-        ),
+        zeroline=False,
 
         range=[0, len(users)]
     )
@@ -290,7 +257,7 @@ def create_mood_chart(mood_df):
 
     fig.update_layout(
 
-        height=360,
+        height=520,
 
         paper_bgcolor=
         "rgba(0,0,0,0)",
@@ -299,9 +266,9 @@ def create_mood_chart(mood_df):
         "rgba(0,0,0,0)",
 
         margin=dict(
-            l=20,
-            r=20,
-            t=40,
+            l=10,
+            r=10,
+            t=130,
             b=20
         ),
 
