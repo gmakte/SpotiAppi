@@ -490,7 +490,11 @@ div[data-testid="stHorizontalBlock"]:has(.taste-evolution-legend) {
 
     color:white;
 
-    margin-bottom:8px;
+    margin-top:0px;
+
+    margin-bottom:0px;
+
+    line-height:1;
 }
 
 .section-subtitle {
@@ -650,6 +654,7 @@ div[data-testid="stHorizontalBlock"]:has(.taste-evolution-legend) {
     align-items:center;
 
     text-align:center;
+    
 }
 
 .peak-window-time {
@@ -674,6 +679,19 @@ div[data-testid="stHorizontalBlock"]:has(.taste-evolution-legend) {
     font-weight:600;
 
     max-width:220px;
+}
+
+.peak-windows-row {
+
+    display:flex;
+
+    gap:28px;
+
+    margin-top:0px;
+
+    padding-top:0px;
+
+    margin-bottom:26px;
 }
 
 .mood-map-header {
@@ -734,4 +752,17 @@ div[data-testid="stHorizontalBlock"]:has(.taste-evolution-legend) {
 
 .personality-card {
     padding-right:20px;
+}
+
+.section-title {
+
+    font-size:24px;
+
+    font-weight:700;
+
+    color:white;
+
+    line-height:1.1;
+
+    margin-bottom:10px;
 }

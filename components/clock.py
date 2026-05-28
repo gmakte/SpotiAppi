@@ -1,8 +1,11 @@
 import streamlit as st
 
-from services.clock_analysis import compute_clock
+from services.clock_analysis import (compute_clock,compute_normalized_share)
 from charts.radial_clock import (create_clock_chart)
-from assets.palette import UI_COLORS
+from services.mood_service import compute_hourly_mood_map
+from assets.palette import (USER_COLORS,MOOD_COLORS)
+from assets.text import SILLY_INSIGHTS
+from charts.proportional_chart import (create_proportional_chart)
 
 def render_clock(df):
 
@@ -18,15 +21,11 @@ def render_clock(df):
         display:flex;
         align-items:center;
         gap:8px;
-        margin-bottom:8px;
+        margin-bottom:5px;
+        margin-top:30px;
         padding-bottom:0;
     ">
-        <div style="
-            font-size:24px;
-            line-height:1;
-            font-weight:700;
-            color:{UI_COLORS["text_primary"]};
-        ">
+        <div class="section-title">
             24h Listening Clock
         </div>
         <span class="clock-info-icon">
@@ -113,7 +112,7 @@ def render_clock(df):
     )
 
     left_col, right_col = st.columns(
-        [0.82, 0.68],
+        [0.78, 1.22],
         gap="small"
     )
 
@@ -125,8 +124,8 @@ def render_clock(df):
 
         fig.update_layout(
 
-            height=430,
-            width=430,
+            height=520,
+            width=520,
 
             margin=dict(
                 l=20,
@@ -189,3 +188,116 @@ def render_clock(df):
                 "displayModeBar": False
             }
         )
+    
+    # =====================================================
+    # RIGHT SIDE
+    # =====================================================
+
+    with right_col:
+
+        share_data = sorted(
+            clock_data["listening_share"],
+            key=lambda x: x["share"],
+            reverse=True
+        )
+
+        st.markdown(
+            """
+        <div class="section-title">
+        Peak windows
+        </div>
+        """,
+            unsafe_allow_html=True
+        )
+        
+        st.markdown(
+            '<div class="peak-windows-row">',
+            unsafe_allow_html=True
+        )
+
+        peak_cols = st.columns(3)
+        
+        for idx, person in enumerate(share_data):
+
+            color = USER_COLORS[
+                person["user"]
+            ]
+
+            silly = SILLY_INSIGHTS[
+                person["user"]
+            ]
+
+            with peak_cols[idx]:
+
+                st.html(
+                    f"""
+            
+            <div style="
+            font-size:24px;
+            font-weight:800;
+            color:{color};
+            text-align:center;
+            margin-bottom:4px;
+            letter-spacing:0.2px;
+            ">
+            {person["user"]}
+            </div>        
+
+            <div class="peak-window-card"
+            style="
+            border:2px solid {color}40;
+            box-shadow:0 0 50px {color}25;
+            ">
+
+            <div class="peak-window-time">
+
+            {person["peak_hour"]}:00 —
+            {person["peak_end_hour"]}:00
+            </div>
+
+            <div class="peak-window-text"
+            style="color:{color};">
+
+            {silly}
+            </div>
+
+            </div>
+            """)
+                
+        # =====================================================
+        # PROPORTIONAL VIEW
+        # =====================================================
+
+        st.markdown(
+            """
+        <div class="section-title">
+        Proportional view
+        </div>
+
+        <div class="section-subtitle">
+        Normalized listening share per hour
+        </div>
+        """,
+            unsafe_allow_html=True
+        )
+
+        hours = clock_data["hours"]
+
+        normalized_map = compute_normalized_share(clock_data)
+
+        fig2 = create_proportional_chart(
+            normalized_map,
+            hours
+        )
+
+        st.plotly_chart(
+            fig2,
+            use_container_width=True,
+            config={
+                "displayModeBar": False
+            }
+        )
+    st.markdown(
+        "</div>",
+        unsafe_allow_html=True
+    )

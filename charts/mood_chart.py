@@ -1,4 +1,10 @@
+import base64
+
 import plotly.graph_objects as go
+
+from assets.palette import (
+    MOOD_COLORS,
+    MOOD_ICONS)
 
 
 def hex_to_rgb(hex_color):
@@ -14,6 +20,14 @@ def hex_to_rgb(hex_color):
 
         for i in (0, 2, 4)
     )
+
+def get_base64_image(path):
+
+    with open(path, "rb") as img_file:
+
+        return base64.b64encode(
+            img_file.read()
+        ).decode()
 
 
 def create_mood_chart(mood_df):
@@ -39,34 +53,6 @@ def create_mood_chart(mood_df):
 
         if mood in mood_df["mood"].unique()
     ]
-
-    # ---------------------------------
-    # EMOJIS
-    # ---------------------------------
-
-    emoji_map = {
-
-        "Happy": "😊",
-        "Energetic": "⚡",
-        "Calm": "🍃",
-        "Dreamy": "☂️",
-        "Dark": "🖤",
-        "Melancholic": "🌧️"
-    }
-
-    # ---------------------------------
-    # COLORS
-    # ---------------------------------
-
-    colors = {
-
-        "Melancholic": "#4f6dff",
-        "Energetic": "#FF8A3D",
-        "Dreamy": "#FF8FD8",
-        "Happy": "#FFD166",
-        "Calm": "#6FAF98",
-        "Dark": "#9B2242"
-    }
 
     users = list(
         mood_df["user"].unique()
@@ -121,7 +107,7 @@ def create_mood_chart(mood_df):
             ) * 0.92 + 0.03
 
             r, g, b = hex_to_rgb(
-                colors[mood]
+                MOOD_COLORS[mood.lower()]
             )
 
             fill = (
@@ -182,21 +168,73 @@ def create_mood_chart(mood_df):
             )
 
     # ---------------------------------
-    # X LABELS
+    # ICONS + LABELS
     # ---------------------------------
 
-    x_labels = [
+    for mood in mood_order:
 
-        f"{emoji_map.get(m, '•')}<br>"
-        f"<span style='font-size:11px;"
-        f"color:#9A9A9A'>{m}</span>"
+        icon_base64 = get_base64_image(
+            MOOD_ICONS[mood]
+        )
 
-        for m in mood_order
-    ]
+        x_pos = (
+            mood_order.index(mood)
+            + 0.5
+        )
+
+        fig.add_layout_image(
+
+            dict(
+
+                source=f"data:image/png;base64,{icon_base64}",
+
+                xref="x",
+
+                yref="paper",
+
+                x=x_pos,
+
+                y=1.08,
+
+                sizex=0.16,
+
+                sizey=0.16,
+
+                xanchor="center",
+
+                yanchor="middle",
+
+                layer="above"
+            )
+        )
+
+        fig.add_annotation(
+
+            x=x_pos,
+
+            y=1.01,
+
+            xref="x",
+
+            yref="paper",
+
+            text=mood,
+
+            showarrow=False,
+
+            font=dict(
+
+                size=12,
+
+                color="rgba(255,255,255,0.70)"
+            )
+        )
 
     fig.update_xaxes(
 
         tickmode="array",
+
+        showticklabels=False,
 
         tickvals=[
             i + 0.5
@@ -204,8 +242,6 @@ def create_mood_chart(mood_df):
                 len(mood_order)
             )
         ],
-
-        ticktext=x_labels,
 
         side="top",
 
@@ -254,7 +290,7 @@ def create_mood_chart(mood_df):
 
     fig.update_layout(
 
-        height=420,
+        height=360,
 
         paper_bgcolor=
         "rgba(0,0,0,0)",

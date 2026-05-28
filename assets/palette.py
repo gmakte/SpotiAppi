@@ -44,3 +44,18 @@ UI_COLORS = {
 
     "tooltip": "rgba(14,18,28,0.96)"
 }
+
+MOOD_ICONS = {
+
+    "Happy": "assets/icons/happy.png",
+
+    "Energetic": "assets/icons/energetic.png",
+
+    "Calm": "assets/icons/calm.png",
+
+    "Dreamy": "assets/icons/dreamy.png",
+
+    "Dark": "assets/icons/dark.png",
+
+    "Melancholic": "assets/icons/melancholic.png"
+}
