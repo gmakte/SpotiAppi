@@ -289,3 +289,47 @@ def compute_clock(df):
         "listening_share":
             listening_share
     }
+
+def compute_normalized_share(clock_data):
+
+    users = [
+        "Ashanti",
+        "Gabi",
+        "Maribel"
+    ]
+
+    normalized_map = {
+        user: []
+        for user in users
+    }
+
+    hours = clock_data["hours"]
+
+    for hour in hours:
+
+        hour_data = clock_data[
+            "hourly_breakdown"
+        ][hour]
+
+        total = sum(
+            hour_data.values()
+        )
+
+        for user in users:
+
+            value = hour_data.get(
+                user,
+                0
+            )
+
+            normalized = (
+                value / total
+                if total > 0
+                else 0
+            )
+
+            normalized_map[user].append(
+                normalized
+            )
+
+    return normalized_map

@@ -1,9 +1,11 @@
 import streamlit as st
-import plotly.graph_objects as go
 
-from services.clock_analysis import (compute_clock)
+from services.clock_analysis import (compute_clock,compute_normalized_share)
 from charts.radial_clock import (create_clock_chart)
 from services.mood_service import compute_hourly_mood_map
+from assets.palette import (USER_COLORS,MOOD_COLORS)
+from assets.text import SILLY_INSIGHTS
+from charts.proportional_chart import (create_proportional_chart)
 
 
 def render_clock(df):
@@ -11,23 +13,6 @@ def render_clock(df):
     clock_data = compute_clock(df)
 
     fig = create_clock_chart(clock_data)
-
-    USER_COLORS = {
-        "Ashanti": "#4f6dff",
-        "Gabi": "#FF8FD8",
-        "Maribel": "#FF8A3D"
-    }
-
-    SILLY_INSIGHTS = {
-        "Ashanti":
-            "certified midnight overthinker.",
-
-        "Gabi":
-            "runs purely on dramatic energy.",
-
-        "Maribel":
-            "treats mornings like a movie montage."
-    }
 
     # =====================================================
     # TITLE
@@ -45,79 +30,20 @@ def render_clock(df):
         unsafe_allow_html=True
     )
 
-    st.markdown(
+    st.html(
         """
-<style>
+    <div class="clock-pill-wrapper">
 
-.normalized-wrapper{
-    position:relative;
-    display:inline-block;
-    margin-top:50px;
-    margin-bottom:-8px;
-}
+        <div class="clock-pill">
+        Normalized
+        </div>
 
-.normalized-pill{
-    padding:12px 22px;
-    border-radius:18px;
-    background:rgba(255,255,255,0.03);
-    border:1px solid rgba(255,255,255,0.05);
-    font-size:15px;
-    font-weight:700;
-    color:#7CFF9E;
-    cursor:help;
-}
+        <div class="clock-tooltip">
+        Scaled by each person’s total listening time to reveal habit patterns.
+        </div>
 
-.normalized-tooltip{
-
-    visibility:hidden;
-    opacity:0;
-
-    width:280px;
-
-    background:#111;
-
-    color:rgba(255,255,255,0.82);
-
-    padding:10px 10px;
-
-    border-radius:14px;
-
-    border:1px solid rgba(255,255,255,0.08);
-
-    position:absolute;
-
-    z-index:999;
-
-    top:120%;
-    left:0;
-
-    transition:0.2s;
-
-    font-size:13px;
-    line-height:1.5;
-}
-
-.normalized-wrapper:hover .normalized-tooltip{
-    visibility:visible;
-    opacity:1;
-}
-
-</style>
-
-<div class="normalized-wrapper">
-
-<div class="normalized-pill">
-Normalized
-</div>
-
-<div class="normalized-tooltip">
-Scaled by each person’s total listening time to reveal habit patterns.
-</div>
-
-</div>
-""",
-        unsafe_allow_html=True
-    )
+    </div>
+    """)
 
     # =====================================================
     # GLOBAL SPACING
@@ -232,17 +158,11 @@ Scaled by each person’s total listening time to reveal habit patterns.
 
         st.markdown(
             """
-    <div style="
-    font-size:28px;
-    font-weight:800;
-    color:white;
-    margin-top:-120px;
-    margin-bottom:8px;
-    ">
-    Listening personality overview
-    </div>
-    """,
-
+        <div class="section-title"
+        style="margin-top:-120px;">
+        Listening personality overview
+        </div>
+        """,
             unsafe_allow_html=True
         )
 
@@ -254,65 +174,37 @@ Scaled by each person’s total listening time to reveal habit patterns.
                 person["user"]
             ]
 
-            silly = SILLY_INSIGHTS[
-                person["user"]
-            ]
-
             with card_cols[idx]:
 
                 st.markdown(
                     f"""
-    <div style="
-    padding-right:20px;
-    ">
+    <div class="personality-card">
 
-    <div style="
-    display:flex;
-    align-items:center;
-    gap:12px;
-    margin-bottom:2px;
-    margin-top:-75px;
-    ">
+    <div class="personality-row"
+    style="margin-top:-75px;">
 
-    <div style="
-    width:18px;
-    height:18px;
-    border-radius:50%;
-    background:{color};
-    "></div>
+    <div class="personality-dot"
+    style="background:{color};">
+    </div>
 
-    <div style="
-    font-size:22px;
-    font-weight:800;
-    color:{color};
-    ">
+    <div class="personality-name"
+    style="color:{color};">
+
     {person["user"]} - {person["share"]}%
     </div>
 
     </div>
 
-    <div style="
-    font-size:15px;
-    color:rgba(255,255,255,0.58);
-    margin-bottom:14px;
-    ">
+    <div class="personality-minutes">
     {person["minutes"]:,} total listening minutes
     </div>
 
-    <div style="
-    height:12px;
-    width:100%;
-    background:rgba(255,255,255,0.05);
-    border-radius:999px;
-    overflow:hidden;
-    margin-bottom:28px;
-    ">
+    <div class="personality-bar">
 
-    <div style="
-    height:100%;
-    width:{person["share"]}%;
+    <div class="personality-bar-fill"
+    style="
+    width:{person['share']}%;
     background:{color};
-    border-radius:999px;
     ">
     </div>
 
@@ -324,18 +216,12 @@ Scaled by each person’s total listening time to reveal habit patterns.
 
         st.markdown(
             """
-    <div style="
-    font-size:28px;
-    font-weight:800;
-    color:white;
-    margin-top:0px;
-    margin-bottom:8px;
-    ">
-    Peak windows
-    </div>
-    """,
-        unsafe_allow_html=True
-    )
+        <div class="section-title">
+        Peak windows
+        </div>
+        """,
+            unsafe_allow_html=True
+        )
         
         peak_cols = st.columns(3)
         
@@ -353,47 +239,21 @@ Scaled by each person’s total listening time to reveal habit patterns.
 
                 st.html(
                     f"""
-            <div style="
-            background:rgba(255,255,255,0.02);
+            <div class="peak-window-card"
+            style="
             border:2px solid {color}40;
             box-shadow:0 0 50px {color}25;
-
-            border-radius:26px;
-
-            padding:12px 14px;
-
-            min-height:150px;
-
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
-            align-items:center;
-
-            text-align:center;
             ">
 
-            <div style="
-            font-size:30px;
-            font-weight:800;
-            color:white;
+            <div class="peak-window-time">
 
-            line-height:1.1;
-
-            margin-bottom:5px;
-            ">
             {person["peak_hour"]}:00 —
             {person["peak_end_hour"]}:00
             </div>
 
-            <div style="
-            font-size:17px;
-            line-height:1.6;
-            font-weight:600;
+            <div class="peak-window-text"
+            style="color:{color};">
 
-            color:{color};
-
-            max-width:220px;
-            ">
             {silly}
             </div>
 
@@ -406,139 +266,24 @@ Scaled by each person’s total listening time to reveal habit patterns.
 
         st.markdown(
             """
-<div style="
-font-size:22px;
-font-weight:800;
-color:white;
-margin-top:1px;
-margin-bottom:4px;
-">
-Proportional view
-</div>
+        <div class="section-title">
+        Proportional view
+        </div>
 
-<div style="
-font-size:13px;
-color:rgba(255,255,255,0.55);
-margin-bottom:14px;
-">
-Normalized listening share per hour
-</div>
-""",
+        <div class="section-subtitle">
+        Normalized listening share per hour
+        </div>
+        """,
             unsafe_allow_html=True
         )
 
         hours = clock_data["hours"]
 
-        users = [
-            "Ashanti",
-            "Gabi",
-            "Maribel"
-        ]
+        normalized_map = compute_normalized_share(clock_data)
 
-        normalized_map = {
-            user: []
-            for user in users
-        }
-
-        for hour in hours:
-
-            hour_data = clock_data[
-                "hourly_breakdown"
-            ][hour]
-
-            total = sum(
-                hour_data.values()
-            )
-
-            for user in users:
-
-                value = hour_data.get(
-                    user,
-                    0
-                )
-
-                normalized = (
-                    value / total
-                    if total > 0
-                    else 0
-                )
-
-                normalized_map[user].append(
-                    normalized
-                )
-
-        fig2 = go.Figure()
-
-        for user in users:
-
-            fig2.add_trace(
-
-                go.Bar(
-
-                    x=hours,
-
-                    y=normalized_map[user],
-
-                    marker_color=USER_COLORS[user],
-
-                    hovertemplate=(
-
-                        f"<b>{user}</b><br>"
-                        "Hour: %{x}:00<br>"
-                        "Normalized share: %{y:.0%}"
-                        "<extra></extra>"
-                    )
-                )
-            )
-
-        fig2.update_layout(
-
-            barmode="stack",
-
-            height=150,
-
-            margin=dict(
-                l=0,
-                r=0,
-                t=0,
-                b=0
-            ),
-
-            paper_bgcolor=
-                "rgba(0,0,0,0)",
-
-            plot_bgcolor=
-                "rgba(0,0,0,0)",
-
-            showlegend=False,
-
-            bargap=0.08,
-
-            xaxis=dict(
-
-                tickmode="linear",
-
-                tick0=0,
-
-                dtick=1,
-
-                color="rgba(255,255,255,0.75)",
-
-                showgrid=False,
-
-                zeroline=False
-            ),
-
-            yaxis=dict(
-
-                visible=False,
-
-                range=[0, 1],
-
-                showgrid=False,
-
-                zeroline=False
-            )
+        fig2 = create_proportional_chart(
+            normalized_map,
+            hours
         )
 
         st.plotly_chart(
@@ -549,41 +294,25 @@ Normalized listening share per hour
             }
         )
 
-
-
         # -----------------------------------
         # MOOD MAP
         # -----------------------------------
 
-        from assets.palette import MOOD_COLORS
         mood_map = compute_hourly_mood_map(df)
 
-        st.html("""
-
-        <div style="
-            margin-top:10px;
-        ">
-
-            <div style="
-                font-size:22px;
-                font-weight:800;
-                color:white;
-                margin-bottom:4px;
-            ">
-                Mood map
-            </div>
-
-            <div style="
-                color:rgba(255,255,255,0.5);
-                font-size:15px;
-                margin-bottom:-5px;
-            ">
-                Dominant mood across each hour of the day.
-            </div>
-
+        st.markdown(
+            """
+        <div class="section-title">
+        Mood map
         </div>
 
-        """)
+        <div class="section-subtitle"
+        style="margin-bottom:-5px;">
+        Dominant mood across each hour of the day.
+        </div>
+        """,
+            unsafe_allow_html=True
+        )
 
         # -----------------------------------
         # HOURS
@@ -591,12 +320,7 @@ Normalized listening share per hour
 
         hours_header = """
 
-        <div style="
-            display:flex;
-            gap:4px;
-            margin-left:76px;
-            margin-bottom:-10px;
-        ">
+        <div class="mood-map-hours">
 
         """
 
@@ -604,12 +328,7 @@ Normalized listening share per hour
 
             hours_header += f"""
 
-            <div style="
-                width:28px;
-                text-align:center;
-                color:rgba(255,255,255,0.45);
-                font-size:15px;
-            ">
+            <div class="mood-map-hour">
                 {hour}
             </div>
 
@@ -627,18 +346,8 @@ Normalized listening share per hour
 
             row = f"""
 
-            <div style="
-                display:flex;
-                align-items:center;
-                gap:4px;
-            ">
-
-                <div style="
-                    width:72px;
-                    color:white;
-                    font-size:17px;
-                    font-weight:700;
-                ">
+            <div class="mood-map-row">
+                <div class="mood-map-name">
                     {person}
                 </div>
 
@@ -656,18 +365,14 @@ Normalized listening share per hour
                 row += f"""
 
                 <div
-                    title="{mood}"
-                    style="
-                        width:28px;
-                        height:28px;
-
-                        border-radius:4px;
-
-                        background:{color};
-
-                        box-shadow:0 0 10px {color}22;
-                    "
-                ></div>
+                title="{mood}"
+                class="mood-map-cell"
+                style="
+                    background:{color};
+                    box-shadow:0 0 10px {color}22;
+                "
+                >
+                </div>
 
                 """
 

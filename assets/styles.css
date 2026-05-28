@@ -282,3 +282,257 @@
 
     font-weight:500;
 }
+
+.section-title {
+
+    font-size:28px;
+
+    font-weight:800;
+
+    color:white;
+
+    margin-bottom:8px;
+}
+
+.section-subtitle {
+
+    font-size:15px;
+
+    color:rgba(255,255,255,0.55);
+
+    margin-bottom:14px;
+}
+
+.clock-pill-wrapper {
+
+    position:relative;
+
+    display:inline-block;
+
+    margin-top:50px;
+
+    margin-bottom:-8px;
+}
+
+.clock-pill {
+
+    padding:12px 22px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,0.03);
+
+    border:1px solid rgba(255,255,255,0.05);
+
+    font-size:15px;
+
+    font-weight:700;
+
+    color:#7CFF9E;
+
+    cursor:help;
+}
+
+.clock-tooltip {
+
+    visibility:hidden;
+
+    opacity:0;
+
+    width:280px;
+
+    background:#111;
+
+    color:rgba(255,255,255,0.82);
+
+    padding:10px 10px;
+
+    border-radius:14px;
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    position:absolute;
+
+    z-index:999;
+
+    top:120%;
+    left:0;
+
+    transition:0.2s;
+
+    font-size:13px;
+
+    line-height:1.5;
+}
+
+.clock-pill-wrapper:hover .clock-tooltip {
+
+    visibility:visible;
+
+    opacity:1;
+}
+
+.personality-row {
+
+    display:flex;
+
+    align-items:baseline;
+
+    gap:12px;
+
+    margin-bottom:8px;
+}
+
+.personality-name {
+
+    font-size:20px;
+
+    font-weight:700;
+
+    line-height:1;
+}
+
+.personality-dot {
+
+    width:14px;
+
+    height:14px;
+
+    border-radius:50%;
+}
+
+.personality-minutes {
+
+    font-size:15px;
+
+    color:rgba(255,255,255,0.58);
+
+    margin-bottom:10px;
+}
+
+.personality-bar {
+
+    height:12px;
+
+    width:100%;
+
+    background:rgba(255,255,255,0.05);
+
+    border-radius:999px;
+
+    overflow:hidden;
+
+    margin-bottom:28px;
+}
+
+.personality-bar-fill {
+
+    height:100%;
+
+    border-radius:999px;
+}
+
+.peak-window-card {
+
+    background:rgba(255,255,255,0.02);
+
+    border-radius:26px;
+
+    padding:12px 14px;
+
+    min-height:150px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+}
+
+.peak-window-time {
+
+    font-size:30px;
+
+    font-weight:800;
+
+    color:white;
+
+    line-height:1.1;
+
+    margin-bottom:5px;
+}
+
+.peak-window-text {
+
+    font-size:17px;
+
+    line-height:1.6;
+
+    font-weight:600;
+
+    max-width:220px;
+}
+
+.mood-map-header {
+
+    margin-top:10px;
+}
+
+.mood-map-hours {
+
+    display:flex;
+
+    gap:4px;
+
+    margin-left:76px;
+
+    margin-bottom:-10px;
+}
+
+.mood-map-hour {
+
+    width:28px;
+
+    text-align:center;
+
+    color:rgba(255,255,255,0.45);
+
+    font-size:15px;
+}
+
+.mood-map-row {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:4px;
+}
+
+.mood-map-name {
+
+    width:72px;
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:700;
+}
+
+.mood-map-cell {
+
+    width:28px;
+
+    height:28px;
+
+    border-radius:4px;
+}
+
+.personality-card {
+    padding-right:20px;
+}
