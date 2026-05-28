@@ -12,6 +12,7 @@ from components.obsession import render_obsession
 from components.users_card import (render_users_card)
 from components.mood import (render_mood)
 from components.clock import (render_clock)
+from components.genre_evolution import render_taste_evolution
 
 st.set_page_config(
     page_title="Spotify Dashboard",
@@ -53,5 +54,4 @@ render_mood(df)
 render_clock(df)
 
 # ROW 5
-with st.container(border=True):
-    st.write("Taste evolution")
+render_taste_evolution(df)

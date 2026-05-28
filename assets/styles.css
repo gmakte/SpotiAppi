@@ -240,6 +240,205 @@
     line-height: 1.4;
 }
 
+.taste-evolution-title-inline {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:0.6rem;
+
+    margin-bottom:0.2rem;
+}
+
+.taste-evolution-title {
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    color:white;
+
+    line-height:1.1;
+}
+
+.taste-evolution-info-floating {
+
+    position:relative;
+
+    z-index:100000;
+
+    cursor:help;
+
+    transform:translateY(2px);
+}
+
+.taste-evolution-info-icon {
+
+    width:18px;
+
+    height:18px;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:999px;
+
+    border:1px solid rgba(255,255,255,0.42);
+
+    color:rgba(255,255,255,0.86);
+
+    font-size:11px;
+
+    font-weight:700;
+
+    line-height:1;
+
+}
+
+.taste-evolution-tooltip {
+
+    position:absolute;
+
+    top:1.8rem;
+
+    left:-1rem;
+
+    width:340px;
+
+    padding:1rem 1.1rem;
+
+    border-radius:18px;
+
+    background:rgba(12,12,14,0.96);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    color:rgba(255,255,255,0.9);
+
+    font-size:0.93rem;
+
+    line-height:1.65;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:all 0.18s ease;
+
+    z-index:999;
+}
+
+.taste-evolution-info-floating:hover .taste-evolution-tooltip {
+
+    opacity:1;
+
+    visibility:visible;
+}
+
+.taste-evolution-legend {
+
+    margin-top:1rem;
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:1rem;
+
+    align-items:center;
+}
+
+.taste-evolution-legend-item {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:0.45rem;
+
+    font-size:1rem;
+
+    color:rgba(255,255,255,0.82);
+
+    cursor:default;
+}
+
+.taste-evolution-legend-dot {
+
+    width:12px;
+
+    height:12px;
+
+    border-radius:50%;
+
+    flex-shrink:0;
+}
+
+.taste-evolution-card {
+
+    width:160px;
+
+    height:160px;
+
+    flex-shrink:0;
+
+    background:rgba(17,17,17,0.92);
+
+    border:1.5px solid rgba(255,255,255,0.06);
+
+    border-radius:22px;
+
+    padding:18px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+}
+
+.taste-evolution-name {
+
+    font-size:24px;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+}
+
+.taste-evolution-archetype {
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    line-height:1.2;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.taste-evolution-card) {
+
+    margin-bottom:-2rem;
+}
+
+div[data-testid="stHorizontalBlock"]:has(.taste-evolution-legend) {
+
+    align-items:center;
+}
+
 .mood-legend {
 
     display:flex;

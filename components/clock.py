@@ -2,7 +2,13 @@ import streamlit as st
 
 from services.clock_analysis import compute_clock
 from charts.radial_clock import (create_clock_chart)
-from assets.palette import USER_COLORS
+
+
+MOOD_IMAGE_BY_USER = {
+    "Ashanti": "assets/avatars/ashanti_mood.png",
+    "Gabi": "assets/avatars/gabi_mood.png",
+    "Maribel": "assets/avatars/maribel_mood.png"
+}
 
 
 def render_clock(df):
@@ -190,66 +196,4 @@ def render_clock(df):
                 "displayModeBar": False
             }
         )
-
-    with right_col:
-
-        st.markdown(
-            """
-            <div style="
-                display:flex;
-                flex-direction:column;
-                gap:10px;
-                padding-top:22px;
-            ">
-            """,
-            unsafe_allow_html=True
-        )
-
-        # Render a vertical timeline with circular badges (no moods or percentages)
-        st.markdown(
-            """
-            <div style="position:relative;padding-left:36px;padding-top:8px;">
-            """,
-            unsafe_allow_html=True
-        )
-
-        for i, item in enumerate(clock_data.get("listening_share", [])):
-
-            user = item.get("user", "")
-            peak_hour = item.get("peak_hour")
-            peak_end_hour = item.get("peak_end_hour")
-            color = USER_COLORS.get(user, "#ffffff")
-
-            # compute left offset and width as percentages for a 24-hour bar
-            if peak_hour is None:
-                left_pct = 0
-                width_pct = 0
-            else:
-                start = int(peak_hour) % 24
-                end = int(peak_end_hour) % 24
-                span = (end - start) % 24
-                if span == 0:
-                    span = 24
-                left_pct = (start / 24) * 100
-                width_pct = (span / 24) * 100
-
-            st.markdown(
-                f"""
-                <div style="position:relative; margin-bottom:18px; display:flex; gap:12px; align-items:center;">
-                    <div style="width:140px;">
-                        <div style="font-size:14px; font-weight:700; color:#ffffff;">{user}</div>
-                        <div style="font-size:13px; color:rgba(255,255,255,0.9); font-weight:700;">{peak_hour}:00 - {peak_end_hour}:00</div>
-                    </div>
-                    <div style="flex:1; height:18px; background:rgba(255,255,255,0.06); border-radius:10px; position:relative; overflow:hidden;">
-                        <div style="position:absolute; left:{left_pct}%; top:0; height:100%; width:{width_pct}%; background:{color}; border-radius:8px; box-shadow:inset 0 -6px 18px rgba(0,0,0,0.24);"></div>
-                        <div style="position:absolute; left:0; top:50%; transform:translateY(-50%); width:100%; display:flex; justify-content:space-between; padding:0 6px; font-size:10px; color:rgba(255,255,255,0.38);">
-                            <div>{0}</div>
-                            <div>24</div>
-                        </div>
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-        st.markdown("</div>", unsafe_allow_html=True)
+    # Right column removed: peak-hour images and boxes disabled per request.
