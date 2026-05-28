@@ -34,7 +34,7 @@ def render_genre_evolution_chart(monthly, selected_genre):
 
                 line=dict(
                     width=1,
-                    color="rgba(255,255,255,0.18)"
+                    color="rgba(255,255,255,0.22)"
                 ),
 
                 line_shape="spline",
