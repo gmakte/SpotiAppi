@@ -1,6 +1,14 @@
-data/
-*.csv
-__pycache__/
+# sensitive raw listening history
+data/full_*.tsv
+data/song_genres.tsv
+
+# large/raw datasets
+data/embeddings
+data/raw/
+data/processed/
+
+# python cache
+**/__pycache__/
 *.pyc
 *.pyo
 *.pyd
